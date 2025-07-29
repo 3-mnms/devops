@@ -1,0 +1,46 @@
+
+replicaCount: 3 
+kafkaGlobalClusterId: "pYdR4Xe6T9K7zTArYtR9XA"
+image:
+  repository: bitnami/kafka
+  tag: 3.6.0
+  pullPolicy: IfNotPresent
+
+kraft:
+  enabled: true
+ 
+
+persistence:
+  enabled: true
+  storageClass: "hostpath" # 테스트용. 프로덕션에서는 적절한 StorageClass 사용 권장
+  size: 10Gi # Kafka 데이터 로그용 PV 크기
+
+kraftPersistence: # KRaft 메타데이터용 별도 Persistent Volume 설정
+  enabled: true
+  storageClass: "hostpath" # 테스트용. 프로덕션에서는 적절한 StorageClass 사용 권장
+  size: 1Gi # KRaft 메타데이터는 작으므로 1Gi면 충분
+
+service:
+  type: ClusterIP
+  port: 9092 # PLAINTEXT 리스너 포트
+  headlessPort: 9093 # CONTROLLER 리스너 포트 (헤드리스 서비스에서 사용)
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Kafka UI 설정
+ui:
+  clusterName: 'my-kafka-cluster'
+  enabled: true
+  image:
+    repository: provectuslabs/kafka-ui
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+
+
+
