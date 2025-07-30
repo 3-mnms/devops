@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "api-festival.servicename" . }}
+  labels:
+    {{- include "api-festival.labels" . | nindent 4 }}
+    {{ include "api-festival.exposelabel" . }}: "true"
+spec:
+  type: {{ .Values.apiFestival.service.type }}
+  selector:
+    app: {{ include "api-festival.fullname" . }}
+  ports:
+    - port: {{ .Values.apiFestival.service.port }}
+      targetPort: {{ .Values.apiFestival.service.port }}
