@@ -19,8 +19,8 @@ api-festival-service
 {{- end }}
 
 {{- define "api-festival.exposelabel" -}}
-{{- if .Values.global.apiFestival.serviceLabel }}
-{{ .Values.global.apiFestival.serviceLabel }}
+{{- if .Values.global.apiGateway.serviceLabel }}
+{{ .Values.global.apiGateway.serviceLabel }}
 {{- else }}
 expose-via-spring-gateway
 {{- end }}

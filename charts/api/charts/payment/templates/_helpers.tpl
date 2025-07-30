@@ -19,8 +19,8 @@ api-payment-service
 {{- end }}
 
 {{- define "api-payment.exposelabel" -}}
-{{- if .Values.global.apiPayment.serviceLabel }}
-{{ .Values.global.apiPayment.serviceLabel }}
+{{- if .Values.global.apiGateway.serviceLabel }}
+{{ .Values.global.apiGateway.serviceLabel }}
 {{- else }}
 expose-via-spring-gateway
 {{- end }}

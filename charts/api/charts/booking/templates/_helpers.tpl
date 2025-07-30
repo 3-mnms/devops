@@ -19,8 +19,8 @@ api-booking-service
 {{- end }}
 
 {{- define "api-booking.exposelabel" -}}
-{{- if .Values.global.apiBooking.serviceLabel }}
-{{ .Values.global.apiBooking.serviceLabel }}
+{{- if .Values.global.apiGateway.serviceLabel }}
+{{ .Values.global.apiGateway.serviceLabel }}
 {{- else }}
 expose-via-spring-gateway
 {{- end }}

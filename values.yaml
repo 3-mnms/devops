@@ -3,6 +3,9 @@ global:
     kafka:  kafka-service
     kafkaUi:  kafka-ui-service
     apiGateway: api-gateway-service
+    apiBooking: api-booking-service
+    apiFestival: api-festival-service
+    apiPayment: api-payment-service
 
 
   apiGateway:
