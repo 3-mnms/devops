@@ -1,5 +1,5 @@
 apiGateway:
-  replicaCount: 2
+  replicaCount: 1
   image:
     repository: rookiesdogun/api-gateway
     tag: test
