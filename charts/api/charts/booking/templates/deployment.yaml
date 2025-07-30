@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apiBooking.fullname" . }}
+  labels:
+    {{- include "apiBooking.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.apiBooking.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "apiBooking.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "apiBooking.fullname" . }}
+    spec:
+      containers:
+        - name: booking
+          image: "{{ .Values.apiBooking.image.registry }}/{{ .Values.apiBooking.image.repository }}:{{ .Values.apiBooking.image.tag }}"
+          imagePullPolicy: {{ .Values.apiBooking.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.apiBooking.service.port }}
