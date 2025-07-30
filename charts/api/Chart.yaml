@@ -5,15 +5,15 @@ type: application
 version: 0.1.0
 appVersion: "1.0.0"
 dependencies:
-  - name: payment
+  - name: api-payment
     version: 0.1.0
     repository: file://charts/payment
-  - name: booking
+  - name: api-booking
     version: 0.1.0
     repository: file://charts/booking
-  - name: festival
+  - name: api-festival
     version: 0.1.0
     repository: file://charts/festival
-  - name: gateway
+  - name: api-gateway
     version: 0.1.0
     repository: file://charts/gateway
