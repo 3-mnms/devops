@@ -2,8 +2,8 @@ apiFestival:
   replicaCount: 1
 
   image:
-    registry: rookiesdogun/api-festival
-    repository: festival-service
+    registry: rookiesdogun
+    repository: api-festival
     tag: test
     pullPolicy: IfNotPresent
 

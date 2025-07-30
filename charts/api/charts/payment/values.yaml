@@ -2,8 +2,8 @@ apiPayment:
   replicaCount: 1
 
   image:
-    registry: rookiesdogun/api-payment
-    repository: payment-service
+    registry: rookiesdogun
+    repository: api-payment
     tag: test
     pullPolicy: IfNotPresent
 

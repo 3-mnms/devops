@@ -2,8 +2,8 @@ apiBooking:
   replicaCount: 1
 
   image:
-    registry: rookiesdogun/api-booking
-    repository: booking-service
+    registry: rookiesdogun
+    repository: api-booking
     tag: test
     pullPolicy: IfNotPresent
 
