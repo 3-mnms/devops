@@ -1,4 +1,16 @@
 global:
+  service:
+    apiBooking: api-booking-service
+    apiFestival: api-festival-service
+    apiPayment: api-payment-service
+
+  apiBooking:
+    serviceLabel: expose-via-spring-gateway
+  apiFestival:
+    serviceLabel: expose-via-spring-gateway
+  apiPayment:
+    serviceLabel: expose-via-spring-gateway
+
   image:
     registry: docker.io/myuser
     tag: latest

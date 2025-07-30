@@ -1,25 +1,27 @@
-{{/*
-Return the chart name.
-*/}}
-{{- define "payment.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- define "api-payment.fullname" -}}
+{{ .Release.Name }}-payment
 {{- end }}
 
-{{/*
-Return the full name (release name + chart name).
-*/}}
-{{- define "payment.fullname" -}}
-{{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- define "api-payment.labels" -}}
+app.kubernetes.io/name: {{ include "api-payment.fullname" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{- define "api-payment.servicename" -}}
+{{- if .Values.global.service.apiPayment }}
+{{- .Values.global.service.apiPayment | trunc 63 | trimSuffix "-" }}
+{{- else if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
-{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+api-payment-service
 {{- end }}
 {{- end }}
 
-{{/*
-Return the name of the chart.
-*/}}
-{{- define "payment.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" -}}
+{{- define "api-payment.exposelabel" -}}
+{{- if .Values.global.apiPayment.serviceLabel }}
+{{ .Values.global.apiPayment.serviceLabel }}
+{{- else }}
+expose-via-spring-gateway
+{{- end }}
 {{- end }}
