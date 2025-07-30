@@ -2,9 +2,9 @@ apiPayment:
   replicaCount: 1
 
   image:
-    registry: docker.io/myuser
+    registry: rookiesdogun/api-payment
     repository: payment-service
-    tag: latest
+    tag: test
     pullPolicy: IfNotPresent
 
   service:

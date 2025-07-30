@@ -2,9 +2,9 @@ apiFestival:
   replicaCount: 1
 
   image:
-    registry: docker.io/myuser
+    registry: rookiesdogun/api-festival
     repository: festival-service
-    tag: latest
+    tag: test
     pullPolicy: IfNotPresent
 
   service:
