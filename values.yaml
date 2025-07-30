@@ -1,0 +1,11 @@
+global:
+  service:
+    kafka:  kafka-service
+    kafkaUi:  kafka-ui-service
+    apiGateway: api-gateway-service
+
+
+  apiGateway:
+    serviceLabel: expose-via-spring-gateway
+
+    

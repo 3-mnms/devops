@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "api-gateway.servicename" . }}
+  labels:
+    app: {{ include "api-gateway.name" . }}
+    {{ include "api-gateway.exposelabel" . }}: "true"
+
+spec:
+  type: {{ .Values.apiGateway.service.type }}
+  ports:
+    - port: {{ .Values.apiGateway.service.port }}
+      targetPort: {{ .Values.apiGateway.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ include "api-gateway.name" . }}
