@@ -2,8 +2,3 @@ global:
   image:
     registry: docker.io/myuser
     tag: latest
-  
-apiPayment:
-  image:
-    repository: payment-service
-    pullPolicy: IfNotPresent
