@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "payment.fullname" . }}
+spec:
+  type: {{ .Values.apiPayment.service.type }}
+  ports:
+    - port: {{ .Values.apiPayment.service.port }}
+      targetPort: 8080
+  selector:
+    app: {{ include "payment.name" . }}

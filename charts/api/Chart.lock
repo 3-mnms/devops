@@ -1,0 +1,9 @@
+dependencies:
+- name: payment
+  repository: file://charts/payment
+  version: 0.1.0
+- name: gateway
+  repository: file://charts/gateway
+  version: 0.1.0
+digest: sha256:d3c8a33e4b8135d6c1a3da7b50a9a2fd71aad3011b64ca0aa4d78ba5992bb073
+generated: "2025-07-29T16:59:20.4273469+09:00"

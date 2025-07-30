@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "payment.fullname" . }}
+spec:
+  replicas: {{ .Values.apiPayment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "payment.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "payment.name" . }}
+    spec:
+      containers:
+        - name: {{ include "payment.name" . }}
+          image: "{{ .Values.apiPayment.image.registry }}/{{ .Values.apiPayment.image.repository }}:{{ .Values.apiPayment.image.tag }}"
+          imagePullPolicy: {{ .Values.apiPayment.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
