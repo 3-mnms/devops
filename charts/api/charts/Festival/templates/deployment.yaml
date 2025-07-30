@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apiFestival.fullname" . }}
+  labels:
+    {{- include "apiFestival.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.apiFestival.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "apiFestival.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "apiFestival.fullname" . }}
+    spec:
+      containers:
+        - name: festival
+          image: "{{ .Values.apiFestival.image.registry }}/{{ .Values.apiFestival.image.repository }}:{{ .Values.apiFestival.image.tag }}"
+          imagePullPolicy: {{ .Values.apiFestival.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.apiFestival.service.port }}
