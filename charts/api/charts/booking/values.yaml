@@ -1,0 +1,12 @@
+apiBooking:
+  replicaCount: 2
+
+  image:
+    registry: docker.io/myuser
+    repository: booking-service
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 8080
