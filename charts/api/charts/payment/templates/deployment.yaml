@@ -1,20 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "payment.fullname" . }}
+  name: {{ include "api-payment.fullname" . }}
+  labels:
+    {{- include "api-payment.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.apiPayment.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "payment.name" . }}
+      app: {{ include "api-payment.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ include "payment.name" . }}
+        app: {{ include "api-payment.fullname" . }}
     spec:
       containers:
-        - name: {{ include "payment.name" . }}
+        - name: payment
           image: "{{ .Values.apiPayment.image.registry }}/{{ .Values.apiPayment.image.repository }}:{{ .Values.apiPayment.image.tag }}"
           imagePullPolicy: {{ .Values.apiPayment.image.pullPolicy }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.apiPayment.service.port }}
