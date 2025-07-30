@@ -37,13 +37,13 @@ spec:
               memory: {{ .Values.apiGateway.resources.limits.memory | default "512Mi" }}
           livenessProbe:
             httpGet:
-              path: /actuator/health/liveness
+              path: /actuator/health
               port: {{ .Values.apiGateway.service.port }}
-            initialDelaySeconds: 30
+            initialDelaySeconds: 50
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /actuator/health/readiness
+              path: /actuator/health
               port: {{ .Values.apiGateway.service.port }}
-            initialDelaySeconds: 10
+            initialDelaySeconds: 50
             periodSeconds: 5
