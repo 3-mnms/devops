@@ -1,4 +1,0 @@
-apiPayment:
-  replicaCount: 1
-  image:
-    tag: develop

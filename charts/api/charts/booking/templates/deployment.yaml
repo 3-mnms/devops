@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "apiBooking.fullname" . }}
+  name: {{ include "api-booking.fullname" . }}
   labels:
-    {{- include "apiBooking.labels" . | nindent 4 }}
+    {{- include "api-booking.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.apiBooking.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "apiBooking.fullname" . }}
+      app: {{ include "api-booking.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ include "apiBooking.fullname" . }}
+        app: {{ include "api-booking.fullname" . }}
     spec:
       containers:
         - name: booking
