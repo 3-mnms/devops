@@ -4,7 +4,7 @@ metadata:
   name: {{ include "api-gateway.fullname" . }}
   labels:
     app: {{ include "api-gateway.name" . }}
-    {{ include "api-gateway.exposelabel" .}}: "true"
+    {{ include "api-gateway.exposelabel" . }}: "true"
 spec:
   replicas: {{ .Values.apiGateway.replicaCount | default 2 }}
   selector:
@@ -14,9 +14,9 @@ spec:
     metadata:
       labels:
         app: {{ include "api-gateway.name" . }}
-        {{ include "api-gateway.exposelabel" .}}: "true"
-    spec:
-      containers:
+        {{ include "api-gateway.exposelabel" . | indent 4 }}: "true"
+    spec: 
+      containers: 
         - name: {{ include "api-gateway.name" . }}
           image: "{{ .Values.apiGateway.image.repository }}:{{ .Values.apiGateway.image.tag }}"
           imagePullPolicy: {{ .Values.apiGateway.image.pullPolicy | default "IfNotPresent" }}

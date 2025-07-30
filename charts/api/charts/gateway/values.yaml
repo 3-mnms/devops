@@ -2,7 +2,7 @@ apiGateway:
   replicaCount: 2
   image:
     repository: rookiesdogun/api-gateway
-    tag: latest
+    tag: test
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
