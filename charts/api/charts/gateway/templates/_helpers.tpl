@@ -1,6 +1,6 @@
 
 
-{{- end}}
+
 {{- define "api-gateway.name" -}}
 api-gateway
 {{- end }}
