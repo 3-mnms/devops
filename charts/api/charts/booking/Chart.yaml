@@ -9,4 +9,5 @@ dependencies:
   - name: mariadb
     version: "12.2.9" 
     repository: "https://charts.bitnami.com/bitnami"
+    condition: api-booking-mariadb.enabled
     alias: api-booking-mariadb
