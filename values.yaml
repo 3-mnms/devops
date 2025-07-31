@@ -1,3 +1,7 @@
+argo-cd:
+  enabled: false
+  
+
 global:
   service:
     kafka:  kafka-service
