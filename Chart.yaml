@@ -18,3 +18,7 @@ dependencies:
     version: 0.1.0
     repository: file://./charts/api
  
+  - name: nginx-client
+    version: 0.1.0
+    repository: file://./charts/nginx-client
+ 
