@@ -4,7 +4,7 @@ metadata:
   name: {{ include "api-festival.servicename" . }}
   labels:
     {{- include "api-festival.labels" . | nindent 4 }}
-    {{ include "api-festival.exposelabel" . }}: "true"
+    {{- printf "%s: \"true\"" (include "api-festival.exposelabel" .) | nindent 4 }}
 spec:
   type: {{ .Values.apiFestival.service.type }}
   selector:

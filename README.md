@@ -7,3 +7,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ### kafka ui
 kubectl port-forward svc/kafka-rookies-kafka-ui  -n [kafka namespace] 8081:8080
+
+### api gateway 
+kubectl port-forward svc/api-payment-service -n test 9090:8080
