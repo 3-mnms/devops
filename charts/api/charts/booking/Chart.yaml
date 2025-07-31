@@ -7,6 +7,6 @@ appVersion: "1.0.0"
 
 dependencies:
   - name: mariadb
-    version: "10.11.5" 
+    version: "12.2.9" 
     repository: "https://charts.bitnami.com/bitnami"
     alias: api-booking-mariadb
