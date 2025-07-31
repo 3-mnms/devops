@@ -4,3 +4,9 @@ description: Helm chart for Booking Service
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
+
+dependencies:
+  - name: mariadb
+    version: "10.11.5" 
+    repository: "https://charts.bitnami.com/bitnami"
+    alias: api-booking-mariadb
