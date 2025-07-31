@@ -4,7 +4,7 @@ metadata:
   name: {{ include "api-booking.servicename" . }}
   labels:
     {{- include "api-booking.labels" . | nindent 4 }}
-    {{ include "api-booking.exposelabel" . }}: "true"
+    {{- printf "%s: \"true\"" (include "api-booking.exposelabel" .) | nindent 4 }}
 spec:
   type: {{ .Values.apiBooking.service.type }}
   selector:

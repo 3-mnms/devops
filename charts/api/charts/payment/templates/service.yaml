@@ -4,7 +4,7 @@ metadata:
   name: {{ include "api-payment.servicename" . }}
   labels:
     {{- include "api-payment.labels" . | nindent 4 }}
-    {{ include "api-payment.exposelabel" . }}: "true"
+    {{- printf "%s: \"true\"" (include "api-payment.exposelabel" .) | nindent 4 }}
 spec:
   type: {{ .Values.apiPayment.service.type }}
   selector:
