@@ -20,6 +20,7 @@ apiBooking:
   
   
 api-booking-mariadb:
+  enabled: true
   auth:
     rootPassword: "rookies" 
     database: booking 
