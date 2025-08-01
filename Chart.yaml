@@ -19,8 +19,12 @@ dependencies:
   - name: rookies-api
     version: 0.1.0
     repository: file://./charts/api
- 
+
   - name: nginx-client
-    version: 0.1.0
+    version: 1.0.0
     repository: file://./charts/nginx-client
+
+  - name: rookies-infra
+    version: 1.0.0
+    repository: file://./charts/infra
  
