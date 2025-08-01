@@ -8,8 +8,11 @@ global:
     kafkaUi:  kafka-ui-service
     apiGateway: api-gateway-service
     apiBooking: api-booking-service
+    apiBookingDatabase: api-booking-database-service
     apiFestival: api-festival-service
+    apiFestivalDatabase: api-festival-database-service
     apiPayment: api-payment-service
+    apiPaymentDatabase: api-payment-database-service
 
 
   apiGateway:

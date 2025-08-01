@@ -1,6 +1,0 @@
-dependencies:
-- name: mariadb
-  repository: https://repo.broadcom.com/bitnami-files
-  version: 12.2.9
-digest: sha256:0f0f68a0d92918f45c2a14ec8229d0dd93c0f27a914793d8bccf55822251b7ac
-generated: "2025-07-31T15:55:18.9192003+09:00"
