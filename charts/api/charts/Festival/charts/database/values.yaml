@@ -1,17 +1,18 @@
-replicaCount: 1
+apiFestivalDatabase:
+  replicaCount: 1
 
-auth:
-  rootPassword: "rookies"
-  database: festival
-  username: rookies
-  password: rookies
+  auth:
+    rootPassword: "rookies"
+    database: festival
+    username: rookies
+    password: rookies
 
-service:
-  name: api-festival-database-service
-  type: ClusterIP
-  port: 3306
+  service:
+    name: api-festival-database-service
+    type: ClusterIP
+    port: 3306
 
-persistence:
-  enabled: true
-  size: 8Gi
-  storageClass: ""
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: ""

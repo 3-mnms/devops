@@ -1,5 +1,5 @@
 {{- define "db.appName" -}}mariadb{{- end }}
-{{- define "db.fullname" -}}{{ include "db.appName" . }}-{{ .Release.Name }}{{- end }}
+{{- define "db.fullname" -}}{{ .Release.Name }}-{{ include "db.appName" . }}{{- end }}
 
 {{- define "db.serviceName" -}}
 {{- $g := .Values.global | default (dict) -}}
