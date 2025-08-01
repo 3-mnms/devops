@@ -2,7 +2,7 @@ replicaCount: 1
 
 auth:
   rootPassword: "rookies"
-  database: booking
+  database: festival
   username: rookies
   password: rookies
 
