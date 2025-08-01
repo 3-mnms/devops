@@ -4,6 +4,6 @@
 {{- define "db.serviceName" -}}
 {{- $g := .Values.global | default (dict) -}}
 {{- $svc := $g.service | default (dict) -}}
-{{- $name := $svc.apiBookingDatabase | default "api-booking-database-service" -}}
+{{- $name := $svc.apiPaymentDatabase | default "api-payment-database-service" -}}
 {{- $name -}}
 {{- end }}
