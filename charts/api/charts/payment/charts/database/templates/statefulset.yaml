@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "db.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "db.appName" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  serviceName: {{ include "db.serviceName" . }}
+  replicas: {{ default 1 .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "db.appName" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "db.appName" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: mariadb
+          {{- $image := .Values.image | default (dict) }}
+          image: "{{ $image.repository | default "mariadb" }}:{{ $image.tag | default "10.11.5" }}"
+          imagePullPolicy: {{ $image.pullPolicy | default "IfNotPresent" }}
+          ports:
+            - containerPort: 3306
+          {{- $auth := .Values.auth | default (dict) }}
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              value: {{ $auth.rootPassword | default "rootpw" }}
+            - name: MARIADB_DATABASE
+              value: {{ $auth.database | default "appdb" }}
+            - name: MARIADB_USER
+              value: {{ $auth.username | default "appuser" }}
+            - name: MARIADB_PASSWORD
+              value: {{ $auth.password | default "apppw" }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            {{- $p := .Values.persistence | default (dict) }}
+            storage: {{ $p.size | default "10Gi" }}
+        {{- if $p.storageClass }}
+        storageClassName: {{ $p.storageClass | quote }}
+        {{- end }}

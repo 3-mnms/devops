@@ -12,24 +12,8 @@ apiBooking:
     port: 8080
 
   database:
-    host: api-booking-mariadb 
+    host: api-booking-database-service
     port: 3306
     name: booking
     username: rookies
     password: rookies
-  
-  
-api-booking-mariadb:
-  enabled: true
-  auth:
-    rootPassword: "rookies" 
-    database: booking 
-    username: rookies 
-    password: rookies
-  primary:
-    service:
-      name: api-booking-mariadb-service
-      type: ClusterIP
-  persistence:
-    enabled: true
-    size: 8Gi
