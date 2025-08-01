@@ -1,4 +1,4 @@
-{{- define "db.appName" -}}mariadb{{- end }}
+{{- define "db.appName" -}}api-festival-database{{- end }}
 {{- define "db.fullname" -}}{{ .Release.Name }}-{{ include "db.appName" . }}{{- end }}
 
 {{- define "db.serviceName" -}}
