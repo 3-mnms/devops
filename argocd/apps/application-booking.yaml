@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: booking
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/3-mnms/devops.git
+    targetRevision: feature/MNMS-136
+    path: charts/api/charts/booking
+    helm:
+      releaseName: booking
+      values: |
+        argo-cd:
+          enabled: false
+        global:
+          service:
+            kafka:  kafka-service
+            kafkaUi:  kafka-ui-service
+            apiGateway: api-gateway-service
+            apiBooking: api-booking-service
+            apiBookingDatabase: api-booking-database-service
+            apiFestival: api-festival-service
+            apiFestivalDatabase: api-festival-database-service
+            apiPayment: api-payment-service
+            apiPaymentDatabase: api-payment-database-service
+          apiGateway:
+            serviceLabel: expose-via-spring-gateway
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: booking
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+    syncOptions: [ CreateNamespace=true ]

@@ -10,3 +10,10 @@ apiPayment:
   service:
     type: ClusterIP
     port: 8080
+
+  database:
+    host: api-payment-database-service
+    port: 3306
+    name: payment
+    username: rookies
+    password: rookies

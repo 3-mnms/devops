@@ -10,3 +10,10 @@ apiFestival:
   service:
     type: ClusterIP
     port: 8080
+
+  database:
+    host: api-festival-database-service
+    port: 3306
+    name: festival
+    username: rookies
+    password: rookies
