@@ -7,7 +7,7 @@ global:
     apiFestival: api-festival-service
     apiPayment: api-payment-service
 
-
+    client: nginx-client-service
   apiGateway:
     serviceLabel: expose-via-spring-gateway
 

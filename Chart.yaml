@@ -17,4 +17,8 @@ dependencies:
   - name: rookies-api
     version: 1.0.0
     repository: file://./charts/api
+
+  - name: rookies-infra
+    version: 1.0.0
+    repository: file://./charts/infra
  
