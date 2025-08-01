@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "db.fullname" . }}
+  name: {{ include "bookingdb.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "db.appName" . }}
+    app.kubernetes.io/name: {{ include "bookingdb.appName" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
-  serviceName: {{ include "db.serviceName" . }}
+  serviceName: {{ include "bookingdb.serviceName" . }}
   replicas: {{ default 1 .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "db.appName" . }}
+      app.kubernetes.io/name: {{ include "bookingdb.appName" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "db.appName" . }}
+        app.kubernetes.io/name: {{ include "bookingdb.appName" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:

@@ -1,7 +1,7 @@
-{{- define "db.appName" -}}api-festival-database{{- end }}
-{{- define "db.fullname" -}}{{ .Release.Name }}-{{ include "db.appName" . }}{{- end }}
+{{- define "festivaldb.appName" -}}api-festival-database{{- end }}
+{{- define "festivaldb.fullname" -}}{{ .Release.Name }}-{{ include "festivaldb.appName" . }}{{- end }}
 
-{{- define "db.serviceName" -}}
+{{- define "festivaldb.serviceName" -}}
 {{- $g := .Values.global | default (dict) -}}
 {{- $svc := $g.service | default (dict) -}}
 {{- $name := $svc.apiFestivalDatabase | default "api-festival-database-service" -}}
