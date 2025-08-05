@@ -1,0 +1,38 @@
+name: 🔄 Helm 이미지 태그 자동 반영
+
+on:
+  repository_dispatch:
+    types: [ image-updated ]
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: map
+        run: |
+          declare -A MAP
+          MAP[react-test]="charts/nginx-client/values.yaml"
+          MAP[spring-test]="charts/api/charts/booking/values.yaml"
+          FILE=${MAP["${{ github.event.client_payload.service }}"]}
+          echo "file=$FILE" >> "$GITHUB_OUTPUT"
+
+      - name: 이미지 태그 갱신
+        env:
+          IMG: ${{ github.event.client_payload.image }}
+          TAG: ${{ github.event.client_payload.tag }}
+        run: |
+          yq -i '
+            (.image.repository) = strenv(IMG) |
+            (.image.tag)        = strenv(TAG)
+          ' "${{ steps.map.outputs.file }}"
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: |
+            chore(helm): ${{
+              github.event.client_payload.service }} 이미지 태그 → ${{ github.event.client_payload.tag }}
+          file_pattern: ${{ steps.map.outputs.file }}
+        env:  
+            GITHUB_TOKEN: ${{ secrets.GH_PAT }}
