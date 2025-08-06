@@ -1,0 +1,17 @@
+apiBookingRedis:
+  replicaCount: 1
+
+  image:
+    repository: redis
+    tag: "7.2.4"
+    pullPolicy: IfNotPresent
+
+  service:
+    name: api-booking-redis-service
+    type: ClusterIP
+    port: 6379
+
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: ""
