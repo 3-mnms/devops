@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nginx-client.fullname" . }}   # nginx-admin이면 "nginx-admin.fullname"
+  name: {{ include "nginx-admin.fullname" . }}
   labels:
-    {{- include "nginx-client.labels" . | nindent 4 }}
+    {{- include "nginx-admin.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "nginx-client.selectorLabels" . | nindent 6 }}
+      {{- include "nginx-admin.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "nginx-client.selectorLabels" . | nindent 8 }}
+        {{- include "nginx-admin.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: nginx
@@ -27,4 +27,4 @@ spec:
       volumes:
         - name: nginx-config
           configMap:
-            name: {{ include "nginx-client.fullname" . }}-config
+            name: {{ include "nginx-admin.fullname" . }}-config
