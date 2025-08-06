@@ -5,6 +5,15 @@ Expand the name of the chart.
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
+{{- define "nginx-client.serviceName" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.client | default "nginx-client-service" -}}
+{{- $name -}}
+{{- end }}
+
+
+
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
