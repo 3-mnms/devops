@@ -7,6 +7,6 @@ spec:
     app: {{ include "nginx-client.fullname" . }}
   ports:
     - protocol: TCP
-      port: {{ .Values.service.port }}
+      port: {{ .Values.nginxClient.service.port }}
       targetPort: 80
-  type: {{ .Values.service.type }}
+  type: {{ .Values.nginxClient.service.type }}

@@ -63,9 +63,9 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Create the name of the service account to use
 */}}
 {{- define "nginx-client.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "nginx-client.fullname" .) .Values.serviceAccount.name }}
+{{- if .Values.nginxClient.serviceAccount.create }}
+{{- default (include "nginx-client.fullname" .) .Values.nginxClient.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" .Values.nginxClient.serviceAccount.name }}
 {{- end }}
 {{- end }}

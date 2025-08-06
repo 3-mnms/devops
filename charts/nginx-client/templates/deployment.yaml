@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "nginx-client.fullname" . }}   # nginx-admin이면 "nginx-admin.fullname"
+  name: {{ include "nginx-client.fullname" . }}
   labels:
     {{- include "nginx-client.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.nginxClient.replicaCount }}
   selector:
     matchLabels:
       {{- include "nginx-client.selectorLabels" . | nindent 6 }}
@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.nginxClient.image.repository }}:{{ .Values.nginxClient.image.tag }}"
+          imagePullPolicy: {{ .Values.nginxClient.image.pullPolicy }}
           ports:
             - containerPort: 80
           volumeMounts:
