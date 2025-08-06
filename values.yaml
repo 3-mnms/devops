@@ -9,6 +9,7 @@ global:
     apiGateway: api-gateway-service
     apiBooking: api-booking-service
     apiBookingDatabase: api-booking-database-service
+    apiBookingRedis: api-booking-redis-service
     apiFestival: api-festival-service
     apiFestivalDatabase: api-festival-database-service
     apiPayment: api-payment-service

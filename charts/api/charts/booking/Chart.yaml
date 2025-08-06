@@ -9,3 +9,6 @@ dependencies:
   - name: api-booking-database
     version: 0.1.0
     repository: "file://./charts/database"
+  - name: api-booking-redis
+    version: 0.1.0
+    repository: "file://./charts/redis"
