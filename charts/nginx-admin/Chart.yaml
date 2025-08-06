@@ -1,0 +1,6 @@
+apiVersion: v2
+name: nginx-admin
+description: A Helm chart for admin Nginx reverse proxy
+type: application
+version: 0.1.0
+appVersion: "1.16.0"

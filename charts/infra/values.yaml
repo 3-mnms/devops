@@ -1,0 +1,23 @@
+
+infra:
+  ingress:
+    mode: develop
+    host: tekcit.com
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+    tls: false
+    tlsSecret: example-tls-secret
+
+    api:
+      subDomain: api
+      path: /
+      pathType: prefix
+      serviceName: api-gateway-service
+      port: 80
+    client:
+      subDomain: client
+      path: /
+      pathType: prefix
+      serviceName: nginx-client-service
+      port: 80

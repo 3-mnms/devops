@@ -1,6 +1,30 @@
 apiVersion: v2
-name: rookies
+name: rookies-app
 description: A Helm chart for Kubernetes
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
+
+
+dependencies:
+  - name: argo-cd
+    version: 8.2.2
+    repository: file://./charts/argo-cd
+    condition: argo-cd.enabled
+    
+  - name: rookies-kafka
+    version: 1.0.0
+    repository: file://./charts/kafka
+    
+  - name: rookies-api
+    version: 0.1.0
+    repository: file://./charts/api
+
+  - name: nginx-client
+    version: 1.0.0
+    repository: file://./charts/nginx-client
+
+  - name: rookies-infra
+    version: 1.0.0
+    repository: file://./charts/infra
+ 
