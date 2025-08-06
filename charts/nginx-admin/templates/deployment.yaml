@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "nginx-admin.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.nginxAdmin.replicaCount }}
   selector:
     matchLabels:
       {{- include "nginx-admin.selectorLabels" . | nindent 6 }}
@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.nginxAdmin.image.repository }}:{{ .Values.nginxAdmin.image.tag }}"
+          imagePullPolicy: {{ .Values.nginxAdmin.image.pullPolicy }}
           ports:
             - containerPort: 80
           volumeMounts:
