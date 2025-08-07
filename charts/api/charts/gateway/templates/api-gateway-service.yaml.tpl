@@ -4,7 +4,7 @@ metadata:
   name: {{ include "api-gateway.servicename" . }}
   labels:
     app: {{ include "api-gateway.name" . }}
-    {{- printf "%s: \"true\"" (include "api-booking.exposelabel" .) | nindent 4 }}
+    {{- printf "%s: \"true\"" (include "api-gateway.exposelabel" .) | nindent 4 }}
 
 spec:
   type: {{ .Values.apiGateway.service.type }}
