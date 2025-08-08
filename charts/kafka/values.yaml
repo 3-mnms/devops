@@ -1,5 +1,5 @@
 kafka:
-  replicaCount: 3 
+  replicaCount: 3
   kafkaGlobalClusterId: "pYdR4Xe6T9K7zTArYtR9XA"
   image:
     repository: bitnami/kafka

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-message-test.fullname" . }}
+  labels:
+    {{- include "api-message-test.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.apiMessageTest.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "api-message-test.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "api-message-test.fullname" . }}
+    spec:
+      containers:
+        - name: festival
+          image: "{{ .Values.apiMessageTest.image.registry }}/{{ .Values.apiMessageTest.image.repository }}:{{ .Values.apiMessageTest.image.tag }}"
+          imagePullPolicy: {{ .Values.apiMessageTest.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.apiMessageTest.service.port }}

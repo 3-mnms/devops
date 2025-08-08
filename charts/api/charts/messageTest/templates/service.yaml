@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "api-message-test.servicename" . }}
+  labels:
+    {{- include "api-message-test.labels" . | nindent 4 }}
+    {{- printf "%s: \"true\"" (include "api-message-test.exposelabel" .) | nindent 4 }}
+spec:
+  type: {{ .Values.apiMessageTest.service.type }}
+  selector:
+    app: {{ include "api-message-test.fullname" . }}
+  ports:
+    - port: {{ .Values.apiMessageTest.service.port }}
+      targetPort: {{ .Values.apiMessageTest.service.port }}
