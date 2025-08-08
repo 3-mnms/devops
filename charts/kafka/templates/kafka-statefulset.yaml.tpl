@@ -8,7 +8,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  serviceName: {{ include "kafka.headlessfullname" . }} 
+  serviceName: {{ include "kafka.servicename" . }} 
   replicas: {{ .Values.kafka.replicaCount }}
   selector:
     matchLabels:
