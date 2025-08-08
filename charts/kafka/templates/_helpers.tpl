@@ -54,7 +54,7 @@
 
 {{- define "kafka.bootstrapServers" -}}
 {{- $fullName := include "kafka.fullname" . -}}
-{{- $headlessService := include "kafka.headlessfullname" . -}}
+{{- $headlessService := include "kafka.servicename" . -}}
 {{- $namespace := .Release.Namespace -}}
 {{- $replicaCount := int .Values.kafka.replicaCount -}} 
 {{- $brokerPort := int .Values.kafka.service.port -}} 
