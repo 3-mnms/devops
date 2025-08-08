@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "kafka.headlessfullname" . }} 
+  name: {{ include "kafka.servicename" . }}
   labels:
     app: {{ include "kafka.servicename" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}

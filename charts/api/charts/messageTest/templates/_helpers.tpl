@@ -13,9 +13,5 @@ api-message-test-service
 {{- end }}
 
 {{- define "api-message-test.exposelabel" -}}
-{{- if .Values.global.apiGateway.serviceLabel }}
-{{ .Values.global.apiGateway.serviceLabel }}
-{{- else }}
 expose-via-spring-gateway
-{{- end }}
 {{- end }}

@@ -15,7 +15,7 @@ spec:
         app: {{ include "api-message-test.fullname" . }}
     spec:
       containers:
-        - name: festival
+        - name: message-test
           image: "{{ .Values.apiMessageTest.image.registry }}/{{ .Values.apiMessageTest.image.repository }}:{{ .Values.apiMessageTest.image.tag }}"
           imagePullPolicy: {{ .Values.apiMessageTest.image.pullPolicy }}
           ports:
