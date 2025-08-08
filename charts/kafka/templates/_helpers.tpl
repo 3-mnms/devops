@@ -36,7 +36,7 @@
 
 {{- define "kafka.controllerQuorumVoters" -}}
 {{- $fullName := include "kafka.fullname" . -}}
-{{- $headlessService := include "kafka.headlessfullname" . -}}
+{{- $headlessService := include "kafka.servicename" . -}}
 {{- $namespace := .Release.Namespace -}}
 {{- $replicaCount := int .Values.kafka.replicaCount -}} 
 
