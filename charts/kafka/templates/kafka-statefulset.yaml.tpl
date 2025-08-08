@@ -37,7 +37,7 @@ spec:
               
               # 1. server.properties 파일 생성
               NODE_ID=$(hostname -s | awk -F'-' '{print $NF}')
-              ADVERTISED_LISTENERS="PLAINTEXT://{{ include "kafka.fullname" . }}-${NODE_ID}.{{ include "kafka.fullname" . }}-headless.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.kafka.service.port }}"
+              ADVERTISED_LISTENERS="PLAINTEXT://{{ include "kafka.fullname" . }}-${NODE_ID}.{{ include "kafka.servicename" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.kafka.service.port }}"
               
               cat /config-template/server.properties.template | \
               sed "s|__NODE_ID__|${NODE_ID}|g" | \
