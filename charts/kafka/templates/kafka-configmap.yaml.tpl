@@ -14,7 +14,7 @@ data:
     node.id=__NODE_ID__ 
     controller.quorum.voters={{ include "kafka.controllerQuorumVoters" . }}
     controller.listener.names=CONTROLLER
-    listeners=PLAINTEXT://:{{ .Values.service.port }},CONTROLLER://:{{ .Values.service.headlessPort }}
+    listeners=PLAINTEXT://:{{ .Values.kafka.service.port }},CONTROLLER://:{{ .Values.kafka.service.headlessPort }}
     advertised.listeners=__ADVERTISED_LISTENERS__
     inter.broker.listener.name=PLAINTEXT
     log.dirs=/bitnami/kafka/data

@@ -1,9 +1,9 @@
 # my-kafka-chart/templates/deployment-kafka-ui.yaml
-{{- if .Values.ui.enabled }}
+{{- if .Values.kafka.ui.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kafka.fullname" . }}-ui
+  name: {{ include "kafka.ui.servicename" . }}
   labels:
     app: kafka-ui
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
@@ -21,17 +21,17 @@ spec:
     spec:
       containers:
         - name: kafka-ui
-          image: "{{ .Values.ui.image.repository }}:{{ .Values.ui.image.tag }}"
-          imagePullPolicy: {{ .Values.ui.image.pullPolicy }}
+          image: "{{ .Values.kafka.ui.image.repository }}:{{ .Values.kafka.ui.image.tag }}"
+          imagePullPolicy: {{ .Values.kafka.ui.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.ui.service.port }}
+              containerPort: {{ .Values.kafka.ui.service.port }}
           env:
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
               value: {{ include "kafka.bootstrapServers" . | quote }}
             - name: KAFKA_CLUSTER_0_NAME
-              value: "{{ .Values.ui.clusterName }}"
-{{- with .Values.resources }}
+              value: "{{ .Values.kafka.ui.clusterName }}"
+{{- with .Values.kafka.resources }}
           resources:
 {{ toYaml . | nindent 12 }}
 {{- end }}

@@ -9,7 +9,7 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   serviceName: {{ include "kafka.headlessfullname" . }} 
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.kafka.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "kafka.name" . }}
@@ -37,7 +37,7 @@ spec:
               
               # 1. server.properties 파일 생성
               NODE_ID=$(hostname -s | awk -F'-' '{print $NF}')
-              ADVERTISED_LISTENERS="PLAINTEXT://{{ include "kafka.fullname" . }}-${NODE_ID}.{{ include "kafka.fullname" . }}-headless.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}"
+              ADVERTISED_LISTENERS="PLAINTEXT://{{ include "kafka.fullname" . }}-${NODE_ID}.{{ include "kafka.fullname" . }}-headless.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.kafka.service.port }}"
               
               cat /config-template/server.properties.template | \
               sed "s|__NODE_ID__|${NODE_ID}|g" | \
@@ -108,13 +108,13 @@ spec:
 
       containers:
         - name: kafka
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.kafka.image.repository }}:{{ .Values.kafka.image.tag }}"
+          imagePullPolicy: {{ .Values.kafka.image.pullPolicy }}
           ports:
             - name: broker
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.kafka.service.port }}
             - name: controller
-              containerPort: {{ .Values.service.headlessPort }}
+              containerPort: {{ .Values.kafka.service.headlessPort }}
           env:
             # Bitnami Kafka에게 initContainer가 생성한 server.properties 파일의 경로를 알려줍니다.
             - name: KAFKA_CFG_SERVER_PROPERTIES_FILE
@@ -126,7 +126,7 @@ spec:
             
             # Kafka 클러스터 ID 설정 (values.yaml에서 가져옴)
             - name: KAFKA_KRAFT_CLUSTER_ID
-              value: {{ .Values.kafkaGlobalClusterId | default "pYdR4Xe6T9K7zTArYtR9XA" | quote }}
+              value: {{ .Values.kafka.kafkaGlobalClusterId | default "pYdR4Xe6T9K7zTArYtR9XA" | quote }}
             
             # log4j 설정 파일 경로를 Kafka JVM에 명시적으로 전달합니다.
             # 파일들이 /opt/bitnami/kafka/config/ 에 직접 생성되므로 경로를 그렇게 지정합니다.
@@ -134,13 +134,13 @@ spec:
               value: "-Dlog4j.configuration=file:/opt/bitnami/kafka/config/log4j.properties -Dtools.log4j.configuration=file:/opt/bitnami/kafka/config/tools-log4j.properties"
 
           resources:
-            {{ toYaml .Values.resources | nindent 12 }}
+            {{ toYaml .Values.kafka.resources | nindent 12 }}
           nodeSelector:
-            {{ toYaml .Values.nodeSelector | nindent 12 }}
+            {{ toYaml .Values.kafka.nodeSelector | nindent 12 }}
           tolerations:
-            {{ toYaml .Values.tolerations | nindent 12 }}
+            {{ toYaml .Values.kafka.tolerations | nindent 12 }}
           affinity:
-            {{ toYaml .Values.affinity | nindent 12 }}
+            {{ toYaml .Values.kafka.affinity | nindent 12 }}
           volumeMounts:
             # initContainer가 생성한 동적 설정 파일들을 마운트합니다.
             - name: dynamic-config-volume
@@ -160,15 +160,15 @@ spec:
         name: data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: {{ .Values.persistence.storageClass }}
+        storageClassName: {{ .Values.kafka.persistence.storageClass }}
         resources:
           requests:
-            storage: {{ .Values.persistence.size }}
+            storage: {{ .Values.kafka.persistence.size }}
     - metadata:
         name: kraft-metadata 
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: {{ .Values.kraftPersistence.storageClass | default .Values.persistence.storageClass }}
+        storageClassName: {{ .Values.kafka.kraftPersistence.storageClass | default .Values.kafka.persistence.storageClass }}
         resources:
           requests:
-            storage: {{ .Values.kraftPersistence.size }}
+            storage: {{ .Values.kafka.kraftPersistence.size }}
