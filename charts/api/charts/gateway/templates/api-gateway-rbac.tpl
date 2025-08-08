@@ -7,10 +7,9 @@ metadata:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: {{ include "api-gateway.fullname" . }}-role
-  namespace: {{ .Release.Namespace }}
+  name: {{ include "api-gateway.fullname" . }}-clusterrole
 rules:
   - apiGroups: [""]
     resources: ["services", "endpoints", "pods"]
@@ -18,15 +17,14 @@ rules:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: {{ include "api-gateway.fullname" . }}-rolebinding
-  namespace: {{ .Release.Namespace }}
+  name: {{ include "api-gateway.fullname" . }}-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "api-gateway.fullname" . }}-clusterrole
 subjects:
   - kind: ServiceAccount
     name: {{ include "api-gateway.fullname" . }}-sa
     namespace: {{ .Release.Namespace }}
-roleRef:
-  kind: Role
-  name: {{ include "api-gateway.fullname" . }}-role
-  apiGroup: rbac.authorization.k8s.io
