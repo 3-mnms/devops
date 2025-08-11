@@ -1,0 +1,18 @@
+apiUserDatabase:
+  replicaCount: 1
+
+  auth:
+    rootPassword: "rookies"
+    database: user
+    username: rookies
+    password: rookies
+
+  service:
+    name: api-user-database-service
+    type: ClusterIP
+    port: 3306
+
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: ""
