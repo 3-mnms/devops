@@ -29,3 +29,15 @@ api-gateway-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+
+{{- define "api-gateway.infranamespace"-}}
+{{- if .Values.global.namespace.infra }}
+{{- .Values.global.namespace.infra | trunc 63 | trimSuffix "-" }}
+{{- else if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+infra
+{{- end }}
+{{- end }}
+
