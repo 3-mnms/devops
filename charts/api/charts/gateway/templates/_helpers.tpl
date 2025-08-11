@@ -31,7 +31,7 @@ expose-via-spring-gateway
 {{- end }}
 
 
-{{- define "api-gateway.infranamespace"-}}
+{{- define "api-gateway.infranamespace" -}}
 {{- if .Values.global.namespace.infra }}
 {{- .Values.global.namespace.infra | trunc 63 | trimSuffix "-" }}
 {{- else if .Values.fullnameOverride }}
