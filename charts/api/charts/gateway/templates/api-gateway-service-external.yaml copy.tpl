@@ -8,6 +8,7 @@ metadata:
     {{- printf "%s: \"true\"" (include "api-gateway.exposelabel" .) | nindent 4 }}
 
 spec:
-  type: externalName
+  type: ExternalName
+  externalName: {{ printf "%s.%s.svc.cluster.local" (include "api-gateway.servicename" .) .Release.Namespace }}
   ports:
     - port: {{ .Values.apiGateway.service.port }}

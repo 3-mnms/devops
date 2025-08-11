@@ -41,3 +41,6 @@ infra
 {{- end }}
 {{- end }}
 
+{{- define "api-gateway.externalname" -}}
+{{ include "api-gateway.servicename" . }}.{{ include ".Release.Namespace" . }}.svc.cluster.local
+{{- end }}
