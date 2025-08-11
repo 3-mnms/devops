@@ -2,7 +2,7 @@
 infra:
   ingress:
     mode: develop
-    host: tekcit.com
+    host: rookies-tekcit.com
     ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
