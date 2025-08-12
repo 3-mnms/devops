@@ -5,7 +5,6 @@ metadata:
   namespace: {{ include "api-gateway.infranamespace" . }}
   labels:
     app: {{ include "api-gateway.name" . }}
-    {{- printf "%s: \"true\"" (include "api-gateway.exposelabel" .) | nindent 4 }}
 
 spec:
   type: ExternalName
