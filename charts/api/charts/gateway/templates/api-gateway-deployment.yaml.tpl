@@ -38,12 +38,12 @@ spec:
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: {{ .Values.apiGateway.service.port }}
+              port: {{ .Values.apiGateway.service.targetPort }}
             initialDelaySeconds: 50
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: {{ .Values.apiGateway.service.port }}
+              port: {{ .Values.apiGateway.service.targetPort }}
             initialDelaySeconds: 50
             periodSeconds: 5
