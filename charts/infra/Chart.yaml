@@ -5,3 +5,7 @@ type: application
 version: 0.1.0
 appVersion: "1.0.0"
 
+dependencies:
+  - name: metallb
+    version: "0.13.10"  # 원하는 버전
+    repository: "https://metallb.github.io/metallb"
