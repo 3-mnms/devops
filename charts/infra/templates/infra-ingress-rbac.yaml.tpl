@@ -10,7 +10,9 @@ rules:
   - apiGroups: ["extensions","networking.k8s.io"]
     resources: ["ingresses","ingressclasses"]
     verbs: ["get","list","watch"]
-
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
