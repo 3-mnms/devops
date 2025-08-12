@@ -29,7 +29,7 @@ infra:
         tag: "v1.13.0"
         pullPolicy: IfNotPresent
       service:
-        type: NodePort
+        type: LoadBalancer
         httpPort: 80
         httpsPort: 443
       nodeSelector: {}
