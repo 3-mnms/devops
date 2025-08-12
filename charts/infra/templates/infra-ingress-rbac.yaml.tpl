@@ -6,7 +6,7 @@ metadata:
 rules:
   - apiGroups: [""]
     resources: ["configmaps", "endpoints", "nodes", "pods", "secrets", "services", "events"]
-    verbs: ["get", "list", "watch"]
+    verbs: ["get", "list", "watch", "create", "patch", "update"]
   - apiGroups: ["networking.k8s.io"]
     resources: ["ingresses", "ingressclasses"]
     verbs: ["get", "list", "watch"]
@@ -16,6 +16,7 @@ rules:
   - apiGroups: ["coordination.k8s.io"]
     resources: ["leases"]
     verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
