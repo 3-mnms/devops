@@ -1,5 +1,5 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: infra-ingress-controller
+  name: {{ include "infra-ingress.serviceaccountname" . }}
   namespace: {{ .Release.Namespace }}

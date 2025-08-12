@@ -16,41 +16,15 @@ spec:
       labels:
         app: infra-ingress-controller
     spec:
-      serviceAccountName: infra-ingress-controller
+      serviceAccountName: {{ include "infra-ingress.serviceaccountname" . }}
       containers:
         - name: controller
           image: "{{ .Values.infra.ingress.controller.image.repository }}:{{ .Values.infra.ingress.controller.image.tag }}"
           imagePullPolicy: {{ .Values.infra.ingress.controller.image.pullPolicy }}
-          env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
           args:
             - /nginx-ingress-controller
-            - --election-id=ingress-controller-leader
-            - --controller-class=k8s.io/ingress-nginx
             - --ingress-class=nginx
-            - --configmap=$(POD_NAMESPACE)/infra-ingress-controller-conf
           ports:
             - name: http
               containerPort: 80
-            - name: https
-              containerPort: 443
-{{- with .Values.infra.ingress.controller.nodeSelector }}
-      nodeSelector:
-{{ toYaml . | nindent 8 }}
-{{- end }}
-{{- with .Values.infra.ingress.controller.tolerations }}
-      tolerations:
-{{ toYaml . | nindent 8 }}
-{{- end }}
-{{- with .Values.infra.ingress.controller.affinity }}
-      affinity:
-{{ toYaml . | nindent 8 }}
-{{- end }}
 {{- end }}
