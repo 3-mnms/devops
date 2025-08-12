@@ -24,6 +24,7 @@ spec:
           args:
             - /nginx-ingress-controller
             - --ingress-class=nginx
+            - --publish-service=infra/infra-ingress-controller
           ports:
             - name: http
               containerPort: 80
