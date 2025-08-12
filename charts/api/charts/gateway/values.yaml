@@ -17,3 +17,12 @@ apiGateway:
     limits:
       cpu: "500m"
       memory: "512Mi"
+
+  ingress:
+    ingressClassName: nginx
+    path: /
+    pathType: Prefix
+    port:
+      http: 80
+      https: 443
+    tls: false

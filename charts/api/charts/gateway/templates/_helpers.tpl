@@ -44,3 +44,15 @@ infra
 {{- define "api-gateway.externalname" -}}
 {{ include "api-gateway.servicename" . }}.{{ include ".Release.Namespace" . }}.svc.cluster.local
 {{- end }}
+
+{{- define "api-gateway-ingress.externalname" -}}
+{{ include "api-gateway.servicename" . }}.{{ include ".Release.Namespace" . }}.svc.cluster.local
+{{- end }}
+
+{{- define "api-gateway-ingress.url" -}}
+{{- if .Values.global.url }}
+{{ .Values.global.url }}
+{{- else }}
+rookies-tekcit.com
+{{- end }}
+{{- end }}
