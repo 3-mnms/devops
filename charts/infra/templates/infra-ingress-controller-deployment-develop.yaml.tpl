@@ -16,10 +16,20 @@ spec:
       labels:
         app: infra-ingress-controller
     spec:
+      serviceAccountName: infra-ingress-controller
       containers:
         - name: controller
           image: "{{ .Values.infra.ingress.controller.image.repository }}:{{ .Values.infra.ingress.controller.image.tag }}"
           imagePullPolicy: {{ .Values.infra.ingress.controller.image.pullPolicy }}
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           args:
             - /nginx-ingress-controller
             - --election-id=ingress-controller-leader
