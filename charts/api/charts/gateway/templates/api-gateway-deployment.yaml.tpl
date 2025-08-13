@@ -27,23 +27,23 @@ spec:
               protocol: TCP
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.apiGateway.spring.profiles | default "default" | quote }}
+              value: {{ .Values.apiGateway.spring.profiles | default "local" | quote }}
           resources:
             requests:
-              cpu: {{ .Values.apiGateway.resources.requests.cpu | default "100m" }}
-              memory: {{ .Values.apiGateway.resources.requests.memory | default "128Mi" }}
+              cpu: {{ .Values.apiGateway.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiGateway.resources.requests.memory | default "256Mi" }}
             limits:
               cpu: {{ .Values.apiGateway.resources.limits.cpu | default "500m" }}
-              memory: {{ .Values.apiGateway.resources.limits.memory | default "512Mi" }}
+              memory: {{ .Values.apiGateway.resources.limits.memory | default "1024Mi" }}
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: {{ .Values.apiGateway.service.port }}
-            initialDelaySeconds: 50
+              port: {{ .Values.apiGateway.service.targetPort }}
+            initialDelaySeconds: 80
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: {{ .Values.apiGateway.service.port }}
-            initialDelaySeconds: 50
+              port: {{ .Values.apiGateway.service.targetPort }}
+            initialDelaySeconds: 80
             periodSeconds: 5

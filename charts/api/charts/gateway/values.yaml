@@ -4,15 +4,32 @@ apiGateway:
     repository: rookiesdogun/api-gateway
     tag: test
     pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 8080
   spring:
-    profiles: default
+    profiles: local
   resources:
     requests:
-      cpu: "100m"
-      memory: "128Mi"
+      cpu: "256m"
+      memory: "512Mi"
     limits:
       cpu: "500m"
-      memory: "512Mi"
+      memory: "1024Mi"
+
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+
+
+  ingress:
+    mode: gce
+    gce:
+      ipName: rookies-tekcit-static-ip
+      backendConfigName: api-gateway-backendconfig
+    path: /
+    pathType: Prefix
+    port:
+      http: 80
+      https: 443
+    tls: false
+    tlsSecret: api-gateway-tls-secret

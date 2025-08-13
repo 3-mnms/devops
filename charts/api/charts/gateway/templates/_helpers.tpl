@@ -29,3 +29,58 @@ api-gateway-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+
+{{- define "api-gateway.infranamespace" -}}
+{{- if .Values.global.namespace.infra }}
+{{- .Values.global.namespace.infra | trunc 63 | trimSuffix "-" }}
+{{- else if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+infra
+{{- end }}
+{{- end }}
+
+{{- define "api-gateway.externalname" -}}
+{{ include "api-gateway.servicename" . }}.{{ include ".Release.Namespace" . }}.svc.cluster.local
+{{- end }}
+
+{{- define "api-gateway-ingress.externalname" -}}
+{{ include "api-gateway.servicename" . }}.{{ include ".Release.Namespace" . }}.svc.cluster.local
+{{- end }}
+
+{{- define "api-gateway-ingress.url" -}}
+{{- if .Values.global.domain }}
+{{ .Values.global.domain }}
+{{- else }}
+rookies-tekcit.com
+{{- end }}
+{{- end }}
+
+
+{{- define "api-gateway-ingress.gce.backendconfing.name" -}}
+{{- if .Values.apiGateway.ingress.gce.backendConfigName }}
+{{ .Values.apiGateway.ingress.gce.backendConfigName }}
+{{- else }}
+api-gateway-backendconfig
+{{- end -}}
+{{- end -}}
+
+{{- define "api-gateway-ingress.gce.annotations.service" -}}
+kubernetes.io/ingress.class: gce
+cloud.google.com/backend-config: '{"http":"{{ include "api-gateway-ingress.gce.backendconfing.name" . }}"}'
+{{- end -}}
+
+{{- define "api-gateway-ingress.gce.annotations.ingress" -}}
+kubernetes.io/ingress.class: gce
+kubernetes.io/ingress.global-static-ip-name: {{ .Values.apiGateway.ingress.gce.ipName | default "rookies-tkcit-static-ip" }}
+{{- end -}}
+
+{{- define "api-gateway-ingress.host" -}}
+{{- if .Values.global.domain }}
+{{- printf "api.%s" .Values.global.domain -}}
+{{- else }}
+api.rookies-tekcit.com
+{{- end }}
+{{- end }}
+
