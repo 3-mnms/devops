@@ -1,7 +1,8 @@
+{{- if eq .Values.apiGateway.ingress.mode "gce" }}
 apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
-  name: api-gateway-backendconfig
+  name: {{ .Values.apiGateway.ingress.gce.backendConfigName | default "api-gateway-backendconfig" }}
 spec:
   healthCheck:
     checkIntervalSec: 10
@@ -12,3 +13,4 @@ spec:
     requestPath: /actuator/health
     port: 8080
     initialDelaySec: 60
+{{- end }}

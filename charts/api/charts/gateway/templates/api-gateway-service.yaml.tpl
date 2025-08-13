@@ -6,8 +6,7 @@ metadata:
     app: {{ include "api-gateway.name" . }}
     {{- printf "%s: \"true\"" (include "api-gateway.exposelabel" .) | nindent 4 }}
   annotations:
-    cloud.google.com/backend-config: '{"http":"api-gateway-backendconfig"}'
-    kubernetes.io/ingress.class: gce
+    {{- include "api-gateway-ingress.gce.annotations.service" . | nindent 4 }}
 
 spec:
   type: {{ .Values.apiGateway.service.type }}

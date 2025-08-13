@@ -4,10 +4,6 @@ apiGateway:
     repository: rookiesdogun/api-gateway
     tag: test
     pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 80
-    targetPort: 8080
   spring:
     profiles: local
   resources:
@@ -18,12 +14,22 @@ apiGateway:
       cpu: "500m"
       memory: "1024Mi"
 
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+
+
   ingress:
-    gce: true
-    ingressClassName: nginx
+    mode: gce
+    gce:
+      ipName: rookies-tkcit-static-ip
+      backendConfigName: api-gateway-backendconfig
     path: /
     pathType: Prefix
     port:
       http: 80
       https: 443
     tls: false
+    tlsSecret: api-gateway-tls-secret

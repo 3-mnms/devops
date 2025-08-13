@@ -4,11 +4,10 @@ kind: Ingress
 metadata:
   name: {{ include "api-gateway.fullname" . }}
   annotations:
-    kubernetes.io/ingress.class: gce
-    kubernetes.io/ingress.global-static-ip-name: rookies-tekcit-static-ip 
+    {{- include "api-gateway-ingress.gce.annotations.ingress" . | nindent 4 }}
 spec:
   rules:
-    - host: {{ printf "api.%s"  .Values.global.url }}
+    - host: {{ include "api-gateway-ingress.host" . }}
       http:
         paths:
           - path: {{ .Values.apiGateway.ingress.path }}
@@ -23,8 +22,7 @@ spec:
   {{- if .Values.apiGateway.ingress.tls }}
   tls:
     - hosts:
-        - {{ printf "%s.%s" .Values.apiGateway.ingress.api.subDomain .Values.apiGateway.ingress.host }}
-        - {{ printf "%s.%s" .Values.apiGateway.ingress.client.subDomain .Values.apiGateway.ingress.host }}
-      secretName: {{ .Values.apiGateway.ingress.tlsSecret }}
+        - {{ include "api-gateway-ingress.host" . }}
+      secretName: {{ .Values.apiGateway.ingress.tlsSecret | default "api-gateway-tls-secret" }}
   {{- end }}
 {{- end }}
