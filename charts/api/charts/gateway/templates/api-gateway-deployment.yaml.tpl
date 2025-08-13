@@ -30,8 +30,8 @@ spec:
               value: {{ .Values.apiGateway.spring.profiles | default "local" | quote }}
           resources:
             requests:
-              cpu: {{ .Values.apiGateway.resources.requests.cpu | default "100m" }}
-              memory: {{ .Values.apiGateway.resources.requests.memory | default "128Mi" }}
+              cpu: {{ .Values.apiGateway.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiGateway.resources.requests.memory | default "256Mi" }}
             limits:
               cpu: {{ .Values.apiGateway.resources.limits.cpu | default "500m" }}
               memory: {{ .Values.apiGateway.resources.limits.memory | default "512Mi" }}
@@ -39,11 +39,11 @@ spec:
             httpGet:
               path: /actuator/health
               port: {{ .Values.apiGateway.service.targetPort }}
-            initialDelaySeconds: 50
+            initialDelaySeconds: 60
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health
               port: {{ .Values.apiGateway.service.targetPort }}
-            initialDelaySeconds: 50
+            initialDelaySeconds: 60
             periodSeconds: 5
