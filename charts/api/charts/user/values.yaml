@@ -1,0 +1,19 @@
+apiUser:
+  replicaCount: 1
+
+  image:
+    registry: rookiesdogun
+    repository: api-user
+    tag: test
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  database:
+    host: api-user-database-service
+    port: 3306
+    name: user
+    username: rookies
+    password: rookies

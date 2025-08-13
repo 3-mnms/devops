@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "api-user.servicename" . }}
+  labels:
+    {{- include "api-user.labels" . | nindent 4 }}
+    {{- printf "%s: \"true\"" (include "api-user.exposelabel" .) | nindent 4 }}
+spec:
+  type: {{ .Values.apiUser.service.type }}
+  selector:
+    app: {{ include "api-user.fullname" . }}
+  ports:
+    - port: {{ .Values.apiUser.service.port }}
+      targetPort: {{ .Values.apiUser.service.port }}
