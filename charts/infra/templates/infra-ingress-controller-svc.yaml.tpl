@@ -6,6 +6,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     app: infra-ingress-controller
+  annotations:
+    metallb.universe.tf/address-pool: default
 spec:
   type: {{ .Values.infra.ingress.controller.service.type }}
   ports:
