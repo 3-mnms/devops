@@ -6,7 +6,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: rookies-tekcit-static-ip 
 spec:
-  ingressClassName: {{ .Values.apiGateway.ingress.ingressClassName }}
   rules:
     - host: {{ printf "api.%s"  .Values.global.url }}
       http:
