@@ -10,7 +10,7 @@ spec:
     - host: {{ include "api-gateway-ingress.host" . }}
       http:
         paths:
-          - path: {{ .Values.apiGateway.ingress.path }}
+          - path: {{ .Values.apiGateway.ingress.path | default "/" }}
             pathType: {{ .Values.apiGateway.ingress.pathType | default "Prefix" | title }}
             backend:
               service:

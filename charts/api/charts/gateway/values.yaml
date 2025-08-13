@@ -24,7 +24,7 @@ apiGateway:
   ingress:
     mode: gce
     gce:
-      ipName: rookies-tkcit-static-ip
+      ipName: rookies-tekcit-static-ip
       backendConfigName: api-gateway-backendconfig
     path: /
     pathType: Prefix

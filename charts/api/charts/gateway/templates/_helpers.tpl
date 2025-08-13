@@ -78,7 +78,7 @@ kubernetes.io/ingress.global-static-ip-name: {{ .Values.apiGateway.ingress.gce.i
 
 {{- define "api-gateway-ingress.host" -}}
 {{- if .Values.global.domain }}
-{{ printf "api.%s" .Values.global.domain }}
+{{- printf "api.%s" .Values.global.domain -}}
 {{- else }}
 api.rookies-tekcit.com
 {{- end }}
