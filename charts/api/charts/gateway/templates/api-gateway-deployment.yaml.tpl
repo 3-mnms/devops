@@ -39,11 +39,11 @@ spec:
             httpGet:
               path: /actuator/health
               port: {{ .Values.apiGateway.service.targetPort }}
-            initialDelaySeconds: 60
+            initialDelaySeconds: 80
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health
               port: {{ .Values.apiGateway.service.targetPort }}
-            initialDelaySeconds: 60
+            initialDelaySeconds: 80
             periodSeconds: 5
