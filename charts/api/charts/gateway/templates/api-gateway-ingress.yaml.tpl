@@ -4,6 +4,7 @@ kind: Ingress
 metadata:
   name: {{ include "api-gateway.fullname" . }}
   annotations:
+    kubernetes.io/ingress.class: gce
     kubernetes.io/ingress.global-static-ip-name: rookies-tekcit-static-ip 
 spec:
   rules:
