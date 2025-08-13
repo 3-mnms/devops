@@ -1,3 +1,4 @@
+{{- if eq .Values.infra.ingress.mode "develop" }}
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -6,7 +7,9 @@ metadata:
 spec:
   addresses:
     - 192.168.0.201-192.168.0.220
+{{- end }}
 ---
+{{- if eq .Values.infra.ingress.mode "develop" }}
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
@@ -15,3 +18,4 @@ metadata:
 spec:
   ipAddressPools:
     - default
+{{- end }}
