@@ -34,7 +34,7 @@ spec:
               memory: {{ .Values.apiGateway.resources.requests.memory | default "256Mi" }}
             limits:
               cpu: {{ .Values.apiGateway.resources.limits.cpu | default "500m" }}
-              memory: {{ .Values.apiGateway.resources.limits.memory | default "512Mi" }}
+              memory: {{ .Values.apiGateway.resources.limits.memory | default "1024Mi" }}
           livenessProbe:
             httpGet:
               path: /actuator/health
