@@ -6,7 +6,7 @@ metadata:
     app: {{ include "api-gateway.name" . }}
     {{- printf "%s: \"true\"" (include "api-gateway.exposelabel" .) | nindent 4 }}
   annotations:
-    cloud.google.com/backend-config: '{"ports": {"http":"api-gateway-backendconfig"}}'
+    cloud.google.com/backend-config: '{"http":"api-gateway-backendconfig"}'
 
 spec:
   type: {{ .Values.apiGateway.service.type }}
