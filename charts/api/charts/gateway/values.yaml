@@ -19,6 +19,7 @@ apiGateway:
       memory: "512Mi"
 
   ingress:
+    gce: true
     ingressClassName: nginx
     path: /
     pathType: Prefix

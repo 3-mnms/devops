@@ -3,6 +3,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "api-gateway.fullname" . }}
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: rookies-tekcit-static-ip 
 spec:
   ingressClassName: {{ .Values.apiGateway.ingress.ingressClassName }}
   rules:
