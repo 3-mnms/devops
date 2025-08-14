@@ -49,6 +49,10 @@ infra
 {{ include "api-gateway.servicename" . }}.{{ include ".Release.Namespace" . }}.svc.cluster.local
 {{- end }}
 
+
+#
+# Ingress 관련 설정
+#
 {{- define "api-gateway-ingress.url" -}}
 {{- if .Values.global.domain }}
 {{ .Values.global.domain }}
@@ -58,6 +62,36 @@ rookies-tekcit.com
 {{- end }}
 
 
+{{- define "api-gateway-ingress.host" -}}
+{{- if .Values.global.domain }}
+{{- printf "api.%s" .Values.global.domain -}}
+{{- else }}
+api.rookies-tekcit.com
+{{- end }}
+{{- end }}
+
+# =====================
+# AWS Ingress 관련 설정
+# ====================
+
+# Annotation 설정
+{{- define "api-gateway-ingress.aws.annotations.ingress" -}}
+kubernetes.io/ingress.class: alb
+alb.ingress.kubernetes.io/scheme: {{ .Values.apiGateway.ingress.aws.scheme | default "internet-facing" }}
+alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+alb.ingress.kubernetes.io/target-type: ip
+alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+{{- if .Values.apiGateway.ingress.tls }}
+alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+{{- end }}
+{{- end -}}
+
+
+
+
+# =====================
+# GCE Ingress 관련 설정
+# =====================
 {{- define "api-gateway-ingress.gce.backendconfing.name" -}}
 {{- if .Values.apiGateway.ingress.gce.backendConfigName }}
 {{ .Values.apiGateway.ingress.gce.backendConfigName }}
@@ -75,12 +109,4 @@ cloud.google.com/backend-config: '{"http":"{{ include "api-gateway-ingress.gce.b
 kubernetes.io/ingress.class: gce
 kubernetes.io/ingress.global-static-ip-name: {{ .Values.apiGateway.ingress.gce.ipName | default "rookies-tkcit-static-ip" }}
 {{- end -}}
-
-{{- define "api-gateway-ingress.host" -}}
-{{- if .Values.global.domain }}
-{{- printf "api.%s" .Values.global.domain -}}
-{{- else }}
-api.rookies-tekcit.com
-{{- end }}
-{{- end }}
 
