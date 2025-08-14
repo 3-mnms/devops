@@ -83,7 +83,7 @@ alb.ingress.kubernetes.io/target-type: ip
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
 {{- if .Values.apiGateway.ingress.tls }}
 alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
-{{- end }}
+{{- end -}}
 {{- end -}}
 
 
@@ -103,6 +103,7 @@ api-gateway-backendconfig
 {{- define "api-gateway-ingress.gce.annotations.service" -}}
 kubernetes.io/ingress.class: gce
 cloud.google.com/backend-config: '{"http":"{{ include "api-gateway-ingress.gce.backendconfing.name" . }}"}'
+
 {{- end -}}
 
 {{- define "api-gateway-ingress.gce.annotations.ingress" -}}

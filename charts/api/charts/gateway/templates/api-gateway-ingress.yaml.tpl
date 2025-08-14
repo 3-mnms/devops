@@ -4,11 +4,12 @@ kind: Ingress
 metadata:
   name: {{ include "api-gateway.fullname" . }}
   annotations:
-    {{- if eq .Values.apiGateway.ingress.mode "gce" -}}
+    {{ if eq .Values.apiGateway.ingress.mode "gce" }}
     {{- include "api-gateway-ingress.gce.annotations.ingress" . | nindent 4 }}
     {{- else if eq .Values.apiGateway.ingress.mode "aws" -}}
     {{- include "api-gateway-ingress.aws.annotations.ingress" . | nindent 4 }}
-    {{- end -}}
+    {{ end }}
+
 spec:
   rules:
     - host: {{ include "api-gateway-ingress.host" . }}
