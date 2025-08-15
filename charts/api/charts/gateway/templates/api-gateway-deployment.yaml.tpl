@@ -27,7 +27,8 @@ spec:
               protocol: TCP
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.apiGateway.spring.profiles | default "local" | quote }}
+              value: {{ .Values.apiGateway.spring.profiles | default "develop" | quote }}
+
           resources:
             requests:
               cpu: {{ .Values.apiGateway.resources.requests.cpu | default "256m" }}

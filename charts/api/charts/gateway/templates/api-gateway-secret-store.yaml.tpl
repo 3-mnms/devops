@@ -4,6 +4,7 @@ metadata:
   name: aws-secrets-manager
 spec:
   provider:
+    {{- if eq .Values.apiGateway.ingress.mode -}}
     aws:
       service: SecretsManager       # AWS Secrets Manager 사용
       region: ap-northeast-2
