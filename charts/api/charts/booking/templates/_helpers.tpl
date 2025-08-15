@@ -25,3 +25,38 @@ api-booking-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+#
+# Application Properties
+# 
+#
+# Application Properties
+# 
+{{- define "api-booking.applicationProperties" -}}
+myboot.name=Test Env
+
+logging.level.com.basic.myspringboot=debug
+
+# MariaDB Database 설정
+spring.datasource.url=jdbc:mariadb://{{ .Values.global.service.apiBookingDatabase | default "api-booking-database" }}:{{ .Values.apiBookingDatabase.service.port | default 3306 }}/{{ .Values.apiBookingDatabase.auth.database | default "booking" }}
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.datasource.username={{ .Values.apiBookingDatabase.auth.username | default "rookies" }}
+spring.datasource.password={{ .Values.apiBookingDatabase.auth.password | default "rookies" }}
+
+# JPA 설정
+spring.jpa.database-platform=org.hibernate.dialect.MariaDBDialect
+spring.jpa.hibernate.ddl-auto=update
+
+# Redis 설정
+spring.redis.host={{ .Values.global.service.apiBookingRedis | default "api-booking-redis" }}
+spring.redis.port={{ .Values.apiBookingRedis.service.port | default 6379 }}
+
+# Kafka 설정
+app.kafka.topic.booking-event=booking-events
+app.kafka.topic.user-event=user-events
+spring.kafka.bootstrap-servers={{ printf "%s:%d" (default "kafka-service" .Values.global.service.kafka) 9092 }}
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.properties.spring.json.trusted.packages=*
+spring.kafka.consumer.properties.spring.json.use.type.headers=false
+{{- end }}
