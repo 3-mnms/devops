@@ -20,3 +20,6 @@ spec:
           imagePullPolicy: {{ .Values.apiBooking.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.apiBooking.service.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "api-booking.fullname" . }}-config
