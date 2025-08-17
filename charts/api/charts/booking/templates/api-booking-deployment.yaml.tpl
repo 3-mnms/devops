@@ -19,22 +19,19 @@ spec:
           configMap:
             name: api-booking-booking-config
             items:
-              - key: application.properties
-                path: application.properties
+              - key: application-dev.properties
+                path: application-dev.properties
       containers:
         - name: booking
           image: "{{ .Values.apiBooking.image.registry }}/{{ .Values.apiBooking.image.repository }}:{{ .Values.apiBooking.image.tag }}"
           imagePullPolicy: {{ .Values.apiBooking.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.apiBooking.service.port }}
-          args:
-            - "--debug"
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
-          envFrom:
-            - configMapRef:
-                name: api-booking-booking-config
+            - name: SPRING_CONFIG_LOCATION
+              value: "classpath:/,file:/config/"
           volumeMounts:
             - name: config-volume
               mountPath: /config
