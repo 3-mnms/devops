@@ -27,6 +27,9 @@ spec:
           imagePullPolicy: {{ .Values.apiBooking.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.apiBooking.service.port }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
           envFrom:
             - configMapRef:
                 name: api-booking-booking-config
