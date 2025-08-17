@@ -56,8 +56,8 @@ spring.jpa.database-platform=org.hibernate.dialect.MariaDBDialect
 spring.jpa.hibernate.ddl-auto=update
 
 # Redis 설정
-spring.redis.host={{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
-spring.redis.port={{ .Values.apiBookingRedis.service.port | default 6379 }}
+spring.data.redis.host={{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
+spring.data.redis.port={{ .Values.apiBookingRedis.service.port | default 6379 }}
 
 # Kafka 설정
 app.kafka.topic.booking-event=booking-events
