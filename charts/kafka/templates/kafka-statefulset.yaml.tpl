@@ -29,6 +29,10 @@ spec:
             - |
               echo "Configuring Kafka server.properties and log4j files..."
               
+              if [ -d "/bitnami/kafka/data/lost+found" ]; then
+                echo "Found lost+found directory. Deleting it..."
+                rm -r /bitnami/kafka/data/lost+found
+              fi
               CONFIG_DIR="/opt/bitnami/kafka/config"
               FINAL_SERVER_PROPERTIES_PATH="${CONFIG_DIR}/server.properties"
               LOG4J_PROPERTIES_PATH="${CONFIG_DIR}/log4j.properties"
