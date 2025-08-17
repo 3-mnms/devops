@@ -27,6 +27,8 @@ spec:
           imagePullPolicy: {{ .Values.apiBooking.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.apiBooking.service.port }}
+          args:
+            - "--debug"
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
