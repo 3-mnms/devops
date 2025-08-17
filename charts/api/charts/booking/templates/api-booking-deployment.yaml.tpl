@@ -14,12 +14,20 @@ spec:
       labels:
         app: {{ include "api-booking.fullname" . }}
     spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: api-booking-booking-config
       containers:
         - name: booking
           image: "{{ .Values.apiBooking.image.registry }}/{{ .Values.apiBooking.image.repository }}:{{ .Values.apiBooking.image.tag }}"
           imagePullPolicy: {{ .Values.apiBooking.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.apiBooking.service.port }}
-          envFrom:
-            - configMapRef:
-                name: {{ include "api-booking.fullname" . }}-config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              subPath: application.properties
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: "file:/config/application.properties"
