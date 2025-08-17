@@ -18,10 +18,12 @@ spec:
       labels:
         app: {{ include "kafka.name" . }}
     spec: 
-      # 모든 설정 파일 생성 및 권한 설정 로직을 하나의 initContainer로 통합합니다.
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
       initContainers:
         - name: configure-kafka
-          image: busybox:latest # 작은 이미지 사용 (셸 스크립트 실행용)
+          image: busybox:latest 
           command: ["sh", "-c"]
           args:
             - |
