@@ -33,4 +33,4 @@ spec:
               readOnly: true
           env:
             - name: SPRING_CONFIG_LOCATION
-              value: "file:/config/application.properties"
+              value: "file:/config/"
