@@ -12,5 +12,5 @@ spec:
     type: HTTP
     requestPath: /actuator/health
     port: 8080
-    initialDelaySec: 60
+    initialDelaySec: 80
 {{- end }}
