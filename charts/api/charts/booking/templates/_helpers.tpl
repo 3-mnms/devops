@@ -38,7 +38,7 @@ myboot.name=Test Env
 logging.level.com.basic.myspringboot=debug
 
 # MariaDB Database 설정
-spring.datasource.url=jdbc:mariadb://{{ .Values.global.service.apiBookingDatabase | default "api-booking-database" }}:{{ .Values.apiBookingDatabase.service.port | default 3306 }}/{{ .Values.apiBookingDatabase.auth.database | default "booking" }}
+spring.datasource.url=jdbc:mariadb://{{ .Values.global.service.apiBookingDatabase | default "api-booking-database-service" }}:{{ .Values.apiBookingDatabase.service.port | default 3306 }}/{{ .Values.apiBookingDatabase.auth.database | default "booking" }}
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 spring.datasource.username={{ .Values.apiBookingDatabase.auth.username | default "rookies" }}
 spring.datasource.password={{ .Values.apiBookingDatabase.auth.password | default "rookies" }}
@@ -48,7 +48,7 @@ spring.jpa.database-platform=org.hibernate.dialect.MariaDBDialect
 spring.jpa.hibernate.ddl-auto=update
 
 # Redis 설정
-spring.redis.host={{ .Values.global.service.apiBookingRedis | default "api-booking-redis" }}
+spring.redis.host={{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
 spring.redis.port={{ .Values.apiBookingRedis.service.port | default 6379 }}
 
 # Kafka 설정
