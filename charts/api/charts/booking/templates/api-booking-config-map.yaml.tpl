@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ include "api-booking.fullname" . }}-config
 data:
-  application.properties: |
+  application-dev.properties: |
 {{ include "api-booking.applicationProperties" . | nindent 4}}
