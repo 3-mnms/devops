@@ -95,14 +95,14 @@ alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectC
 {{- define "api-gateway-ingress.gce.backendconfing.name" -}}
 {{- if .Values.apiGateway.ingress.gce.backendConfigName }}
 {{ .Values.apiGateway.ingress.gce.backendConfigName }}
-{{- else }}
+{{- else -}}
 api-gateway-backendconfig
 {{- end -}}
 {{- end -}}
 
 {{- define "api-gateway-ingress.gce.annotations.service" -}}
 kubernetes.io/ingress.class: gce
-cloud.google.com/backend-config: '{"http":"{{ include "api-gateway-ingress.gce.backendconfing.name" . }}"}'
+cloud.google.com/backend-config: '{"http":"{{ include "api-gateway-ingress.gce.backendconfing.name" . | trim }}"}'
 
 {{- end -}}
 

@@ -1,10 +1,11 @@
+
+{{- if eq .Values.apiGateway.ingress.mode "aws" -}}
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
   name: aws-secrets-manager
 spec:
   provider:
-    {{- if eq .Values.apiGateway.ingress.mode -}}
     aws:
       service: SecretsManager       # AWS Secrets Manager 사용
       region: ap-northeast-2
@@ -13,3 +14,4 @@ spec:
           serviceAccountRef:
             name: external-secrets-sa
             namespace: external-secrets
+{{- end -}}
