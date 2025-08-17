@@ -17,7 +17,10 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: api-booking-booking-config
+            name: booking-config
+            items:
+              - key: application.properties
+                path: application.properties
       containers:
         - name: booking
           image: "{{ .Values.apiBooking.image.registry }}/{{ .Values.apiBooking.image.repository }}:{{ .Values.apiBooking.image.tag }}"
@@ -31,6 +34,3 @@ spec:
             - name: config-volume
               mountPath: /config
               readOnly: true
-          env:
-            - name: SPRING_CONFIG_LOCATION
-              value: "file:/config/"

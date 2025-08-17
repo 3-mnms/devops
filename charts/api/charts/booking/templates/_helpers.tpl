@@ -33,8 +33,17 @@ expose-via-spring-gateway
 # Application Properties
 # 
 {{- define "api-booking.applicationProperties" -}}
-myboot.name=Test Env
+spring.application.name=booking
 
+
+server.port=8080
+
+server.address=0.0.0.0
+
+spring.profiles.active=test
+
+# log file
+logging.file.path=logs
 logging.level.com.basic.myspringboot=debug
 
 # MariaDB Database 설정
