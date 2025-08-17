@@ -21,7 +21,7 @@ spec:
               service:
                 name: {{ include "api-gateway.servicename" . }}
                 port:
-                  number: {{ .Values.apiGateway.ingress.port.http }}
+                  number: {{ .Values.apiGateway.service.port }}
 
       
   {{- if .Values.apiGateway.ingress.tls }}
