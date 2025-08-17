@@ -62,7 +62,7 @@ spring.data.redis.port={{ .Values.apiBookingRedis.service.port | default 6379 }}
 # Kafka 설정
 app.kafka.topic.booking-event=booking-events
 app.kafka.topic.user-event=user-events
-spring.kafka.bootstrap-servers={{ printf "%s:%d" (default "kafka-service" .Values.global.service.kafka) 9092 }}
+spring.kafka.bootstrap-servers={{ printf "%s.kafka.svc.cluster.local:%d" (default "kafka-service" .Values.global.service.kafka) 9092 }}
 spring.kafka.consumer.auto-offset-reset=earliest
 spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
 spring.kafka.consumer.properties.spring.json.trusted.packages=*
