@@ -28,13 +28,13 @@ spec:
           {{- $auth := .Values.auth | default (dict) }}
           env:
             - name: MARIADB_ROOT_PASSWORD
-              value: {{ $auth.rootPassword | default "rootpw" }}
+              value: {{ $auth.rootPassword | default "rookies" }}
             - name: MARIADB_DATABASE
-              value: {{ $auth.database | default "appdb" }}
+              value: {{ $auth.database | default "booking" }}
             - name: MARIADB_USER
-              value: {{ $auth.username | default "appuser" }}
+              value: {{ $auth.username | default "rookies" }}
             - name: MARIADB_PASSWORD
-              value: {{ $auth.password | default "apppw" }}
+              value: {{ $auth.password | default "rookies" }}
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
