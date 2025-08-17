@@ -40,7 +40,6 @@ server.port=8080
 
 server.address=0.0.0.0
 
-spring.profiles.active=dev
 
 # log file
 logging.file.path=logs
