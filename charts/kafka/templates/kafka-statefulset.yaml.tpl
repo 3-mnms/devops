@@ -28,11 +28,7 @@ spec:
           args:
             - |
               echo "Configuring Kafka server.properties and log4j files..."
-              
-              if [ -d "/bitnami/kafka/data/lost+found" ]; then
-                echo "Found lost+found directory. Deleting it..."
-                rm -r /bitnami/kafka/data/lost+found
-              fi
+
               CONFIG_DIR="/opt/bitnami/kafka/config"
               FINAL_SERVER_PROPERTIES_PATH="${CONFIG_DIR}/server.properties"
               LOG4J_PROPERTIES_PATH="${CONFIG_DIR}/log4j.properties"
@@ -138,7 +134,17 @@ spec:
             # 파일들이 /opt/bitnami/kafka/config/ 에 직접 생성되므로 경로를 그렇게 지정합니다.
             - name: KAFKA_OPTS
               value: "-Dlog4j.configuration=file:/opt/bitnami/kafka/config/log4j.properties -Dtools.log4j.configuration=file:/opt/bitnami/kafka/config/tools-log4j.properties"
-
+          command: ["/bin/bash"]
+          args:
+            - "-c"
+            - |
+              echo "Checking and cleaning Kafka data directory..."
+              if [ -d "/bitnami/kafka/data/lost+found" ]; then
+                echo "Found lost+found. Deleting it now."
+                rm -r "/bitnami/kafka/data/lost+found"
+              fi
+              # Bitnami Kafka 시작 스크립트 실행
+              exec /opt/bitnami/scripts/kafka/run.sh
           resources:
             {{ toYaml .Values.kafka.resources | nindent 12 }}
           nodeSelector:
