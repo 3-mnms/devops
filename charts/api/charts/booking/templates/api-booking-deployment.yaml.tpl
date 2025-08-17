@@ -24,10 +24,13 @@ spec:
           imagePullPolicy: {{ .Values.apiBooking.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.apiBooking.service.port }}
+          envFrom:
+            - configMapRef:
+                name: api-booking-booking-config
           volumeMounts:
             - name: config-volume
               mountPath: /config
-              subPath: application.properties
+              readOnly: true
           env:
             - name: SPRING_CONFIG_LOCATION
               value: "file:/config/application.properties"
