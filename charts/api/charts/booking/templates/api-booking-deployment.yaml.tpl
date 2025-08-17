@@ -17,7 +17,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: booking-config
+            name: api-booking-booking-config
             items:
               - key: application.properties
                 path: application.properties
