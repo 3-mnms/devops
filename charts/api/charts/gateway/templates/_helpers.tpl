@@ -102,7 +102,7 @@ api-gateway-backendconfig
 
 {{- define "api-gateway-ingress.gce.annotations.service" -}}
 kubernetes.io/ingress.class: gce
-cloud.google.com/backend-config: '{"http":"{{ include "api-gateway-ingress.gce.backendconfing.name" . | trim }}"}'
+cloud.google.com/backend-config: '{"ports":{"http":"{{ include "api-gateway-ingress.gce.backendconfing.name" . | trim }}"}}'
 
 {{- end -}}
 
