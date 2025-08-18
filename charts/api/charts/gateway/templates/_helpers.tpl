@@ -78,11 +78,12 @@ api.rookies-tekcit.com
 {{- define "api-gateway-ingress.aws.annotations.ingress" -}}
 kubernetes.io/ingress.class: alb
 alb.ingress.kubernetes.io/scheme: {{ .Values.apiGateway.ingress.aws.scheme | default "internet-facing" }}
-alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
 alb.ingress.kubernetes.io/target-type: ip
-alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-{{- if .Values.apiGateway.ingress.tls }}
-alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+{{- if eq .Values.apiGateway.ingress.tls true }}
+alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+alb.ingress.kubernetes.io/certificate-arn: {{ .Values.apiGateway.ingress.aws.certificateArn | quote }}
+{{- else }}
+alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- end -}}
 {{- end -}}
 

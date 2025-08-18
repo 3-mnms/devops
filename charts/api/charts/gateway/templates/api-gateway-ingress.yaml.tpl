@@ -24,10 +24,10 @@ spec:
                   number: {{ .Values.apiGateway.service.port }}
 
       
-  {{- if .Values.apiGateway.ingress.tls }}
+  {{- if and (eq .Values.apiGateway.ingress.mode "gce") .Values.apiGateway.ingress.tls }}
   tls:
     - hosts:
         - {{ include "api-gateway-ingress.host" . }}
-      secretName: {{ .Values.apiGateway.ingress.tlsSecret | default "api-gateway-tls-secret" }}
+      secretName: {{ .Values.apiGateway.ingress.gce.tlsSecret | default "api-gateway-tls-secret" }}
   {{- end }}
 {{- end }}
