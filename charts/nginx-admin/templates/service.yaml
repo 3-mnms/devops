@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nginx-admin.serviceName" . }}
+spec:
+  selector:
+    app: {{ include "nginx-admin.fullname" . }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.nginxAdmin.service.port }}
+      targetPort: 80
+  type: {{ .Values.nginxAdmin.service.type }}

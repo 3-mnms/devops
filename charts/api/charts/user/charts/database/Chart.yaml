@@ -1,0 +1,6 @@
+apiVersion: v2
+name: api-user-database
+description: MariaDB chart for api-user
+type: application
+version: 0.1.0
+appVersion: "10.11.5"

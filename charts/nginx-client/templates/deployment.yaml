@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nginx-client.fullname" . }}
+  labels:
+    {{- include "nginx-client.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.nginxClient.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "nginx-client.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "nginx-client.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: nginx
+          image: "{{ .Values.nginxClient.image.repository }}:{{ .Values.nginxClient.image.tag }}"
+          imagePullPolicy: {{ .Values.nginxClient.image.pullPolicy }}
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: {{ include "nginx-client.fullname" . }}-config

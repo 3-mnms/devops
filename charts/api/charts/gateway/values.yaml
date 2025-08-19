@@ -1,0 +1,39 @@
+apiGateway:
+  replicaCount: 1
+  image:
+    repository: rookiesdogun/api-gateway
+    tag: test
+    pullPolicy: IfNotPresent
+  spring:
+    profiles: local
+  resources:
+    requests:
+      cpu: "256m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "1024Mi"
+
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8080
+
+
+  ingress:
+    mode: aws
+    port:
+      http: 80
+      https: 443
+    path: /
+    pathType: Prefix
+    tls: true
+
+    gce:
+      ipName: rookies-tekcit-static-ip
+      backendConfigName: api-gateway-backendconfig
+      tlsSecret: api-gateway-tls-secret
+    aws:
+      scheme: "internal-facing" 
+      certificateArn: "none"

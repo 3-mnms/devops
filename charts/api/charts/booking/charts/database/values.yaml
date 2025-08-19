@@ -1,0 +1,18 @@
+apiBookingDatabase:
+  replicaCount: 1
+
+  auth:
+    rootPassword: "rookies"
+    database: booking
+    username: rookies
+    password: rookies
+
+  service:
+    name: api-booking-database-service
+    type: ClusterIP
+    port: 3306
+
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: ""

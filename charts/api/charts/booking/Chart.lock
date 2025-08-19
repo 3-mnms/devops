@@ -1,0 +1,9 @@
+dependencies:
+- name: api-booking-database
+  repository: file://./charts/database
+  version: 0.1.0
+- name: api-booking-redis
+  repository: file://./charts/redis
+  version: 0.1.0
+digest: sha256:4fb6e79f98009b0d936065b3353c9c58f75c95490da5bf1a08fe8143decb4abd
+generated: "2025-08-06T10:12:22.2963493+09:00"

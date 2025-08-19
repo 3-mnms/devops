@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-user.fullname" . }}
+  labels:
+    {{- include "api-user.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.apiUser.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "api-user.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "api-user.fullname" . }}
+    spec:
+      containers:
+        - name: user
+          image: "{{ .Values.apiUser.image.registry }}/{{ .Values.apiUser.image.repository }}:{{ .Values.apiUser.image.tag }}"
+          imagePullPolicy: {{ .Values.apiUser.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.apiUser.service.port }}

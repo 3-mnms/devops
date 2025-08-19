@@ -1,0 +1,14 @@
+apiVersion: v2
+name: api-booking
+description: Helm chart for Booking Service
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: api-booking-database
+    version: 0.1.0
+    repository: "file://./charts/database"
+  - name: api-booking-redis
+    version: 0.1.0
+    repository: "file://./charts/redis"

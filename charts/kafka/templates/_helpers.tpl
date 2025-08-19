@@ -17,13 +17,30 @@
 {{- end -}}
 
 
+{{- define "kafka.servicename" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.kafka | default "kafka-service" -}}
+{{- $name -}}
+{{- end }}
+
+
+{{- define "kafka.ui.servicename" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.kafkaUi | default "kafka-ui-service" -}}
+{{- $name -}}
+{{- end }}
+
+
+
 {{- define "kafka.controllerQuorumVoters" -}}
 {{- $fullName := include "kafka.fullname" . -}}
-{{- $headlessService := include "kafka.headlessfullname" . -}}
+{{- $headlessService := include "kafka.servicename" . -}}
 {{- $namespace := .Release.Namespace -}}
-{{- $replicaCount := int .Values.replicaCount -}} 
+{{- $replicaCount := int .Values.kafka.replicaCount -}} 
 
-{{- $controllerPort := int .Values.service.headlessPort -}}
+{{- $controllerPort := int .Values.kafka.service.headlessPort -}}
 
 {{- $voters := list -}}
 {{- range $i := until $replicaCount -}}
@@ -37,10 +54,10 @@
 
 {{- define "kafka.bootstrapServers" -}}
 {{- $fullName := include "kafka.fullname" . -}}
-{{- $headlessService := include "kafka.headlessfullname" . -}}
+{{- $headlessService := include "kafka.servicename" . -}}
 {{- $namespace := .Release.Namespace -}}
-{{- $replicaCount := int .Values.replicaCount -}} 
-{{- $brokerPort := int .Values.service.port -}} 
+{{- $replicaCount := int .Values.kafka.replicaCount -}} 
+{{- $brokerPort := int .Values.kafka.service.port -}} 
 {{- $servers := list -}}
 {{- range $i := until $replicaCount -}}
   {{- $server := printf "%s-%d.%s.%s.svc.cluster.local:%d" $fullName $i $headlessService $namespace $brokerPort -}}

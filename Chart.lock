@@ -1,0 +1,15 @@
+dependencies:
+- name: argo-cd
+  repository: file://./charts/argo-cd
+  version: 8.2.2
+- name: rookies-kafka
+  repository: file://./charts/kafka
+  version: 1.0.0
+- name: rookies-api
+  repository: file://./charts/api
+  version: 0.1.0
+- name: nginx-client
+  repository: file://./charts/nginx-client
+  version: 0.1.0
+digest: sha256:4cb1a82da211c708aeb8c466d60b19b2227b777f27f48716cffae1d95436ac4d
+generated: "2025-07-31T16:26:05.6121559+09:00"

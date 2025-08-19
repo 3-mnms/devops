@@ -1,0 +1,29 @@
+argo-cd:
+  enabled: false
+  
+
+global:
+  service:
+    kafka:  kafka-service
+    kafkaUi:  kafka-ui-service
+    apiGateway: api-gateway-service
+    apiBooking: api-booking-service
+    apiBookingDatabase: api-booking-database-service
+    apiBookingRedis: api-booking-redis-service
+    apiFestival: api-festival-service
+    apiFestivalDatabase: api-festival-database-service
+    apiPayment: api-payment-service
+    apiPaymentDatabase: api-payment-database-service
+    apiUser: api-user-service
+    apiUserDatabase: api-user-database-service
+
+    client: nginx-client-service
+    admin: nginx-admin-service
+  apiGateway:
+    serviceLabel: expose-via-spring-gateway
+  
+  namespace:
+    infra: infra
+
+  url: rookies-tekcit.com
+    

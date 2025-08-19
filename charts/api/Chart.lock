@@ -1,0 +1,15 @@
+dependencies:
+- name: api-payment
+  repository: file://charts/payment
+  version: 0.1.0
+- name: api-booking
+  repository: file://charts/booking
+  version: 0.1.0
+- name: api-festival
+  repository: file://charts/festival
+  version: 0.1.0
+- name: api-gateway
+  repository: file://charts/gateway
+  version: 0.1.0
+digest: sha256:1757b976e5b32a03de5c892ab8c721ba0de60779c74c6b8e798435420b942e0e
+generated: "2025-07-31T13:37:48.5232244+09:00"

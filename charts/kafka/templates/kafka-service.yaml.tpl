@@ -1,29 +1,29 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "kafka.headlessfullname" . }} 
+  name: {{ include "kafka.servicename" . }}
   labels:
-    app: {{ include "kafka.name" . }}
+    app: {{ include "kafka.servicename" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }} 
+  type: {{ .Values.kafka.service.type }} 
   clusterIP: None 
   ports:
     - name: broker
-      port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
+      port: {{ .Values.kafka.service.port }}
+      targetPort: {{ .Values.kafka.service.port }}
     - name: controller
-      port: {{ .Values.service.headlessPort }}
-      targetPort: {{ .Values.service.headlessPort }}
+      port: {{ .Values.kafka.service.headlessPort }}
+      targetPort: {{ .Values.kafka.service.headlessPort }}
   selector:
     app: {{ include "kafka.name" . }}
 
 ---
 # kafka-ui
 # my-kafka-chart/templates/service-kafka-ui.yaml
-{{- if .Values.ui.enabled }}
+{{- if .Values.kafka.ui.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,9 +34,9 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.ui.service.type }}
+  type: {{ .Values.kafka.ui.service.type }}
   ports:
-    - port: {{ .Values.ui.service.port }}
+    - port: {{ .Values.kafka.ui.service.port }}
       targetPort: http
       protocol: TCP
       name: http

@@ -1,0 +1,40 @@
+
+infra:
+  ingress:
+    mode: develop
+    host: rookies-tekcit.com
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+    tls: false
+    tlsSecret: example-tls-secret
+
+    api:
+      subDomain: api
+      path: /
+      pathType: prefix
+      serviceName: api-gateway-service
+      port: 80
+    client:
+      subDomain: client
+      path: /
+      pathType: prefix
+      serviceName: nginx-client-service
+      port: 80
+
+    controller:
+      replicaCount: 1
+      image:
+        repository: registry.k8s.io/ingress-nginx/controller
+        tag: "v1.13.0"
+        pullPolicy: IfNotPresent
+      service:
+        type: LoadBalancer
+        httpPort: 80
+        httpsPort: 443
+      nodeSelector: {}
+      tolerations: []
+      affinity: {}
+
+metallb:
+  enabled: true
