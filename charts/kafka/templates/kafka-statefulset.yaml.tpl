@@ -146,12 +146,16 @@ spec:
                 rm -r "/bitnami/kafka/data/lost+found"
               fi
               # Bitnami Kafka 시작 스크립트 실행
-              exec /opt/bitnami/scripts/kafka/run.sh
 
+              
               echo "Formatting Kafka data directory..."
               /opt/bitnami/kafka/bin/kafka-storage.sh format \
                 -t {{ .Values.kafka.kafkaGlobalClusterId | default "pYdR4Xe6T9K7zTArYtR9XA" | quote }} \
                 -c /opt/bitnami/kafka/config/server.properties
+
+                
+              exec /opt/bitnami/scripts/kafka/run.sh
+
           resources:
             {{ toYaml .Values.kafka.resources | nindent 12 }}
           nodeSelector:
