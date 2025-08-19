@@ -97,10 +97,10 @@ spec:
               chmod 644 ${FINAL_SERVER_PROPERTIES_PATH} ${LOG4J_PROPERTIES_PATH} ${TOOLS_LOG4J_PROPERTIES_PATH}
               chown 1001:1001 ${FINAL_SERVER_PROPERTIES_PATH} ${LOG4J_PROPERTIES_PATH} ${TOOLS_LOG4J_PROPERTIES_PATH}
               
-              echo "Formatting Kafka data directory with cluster ID: {{ .Values.kafka.kafkaGlobalClusterId | default "pYdR4Xe6T9K7zTArYtR9XA" | quote }}"
+              echo "Formatting Kafka data directory..."
               /opt/bitnami/kafka/bin/kafka-storage.sh format \
                 -t {{ .Values.kafka.kafkaGlobalClusterId | default "pYdR4Xe6T9K7zTArYtR9XA" | quote }} \
-                -c ${FINAL_SERVER_PROPERTIES_PATH}
+                -c /opt/bitnami/kafka/config/server.properties
                 
               echo "All configuration files created and permissions set."
 
