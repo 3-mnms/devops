@@ -97,13 +97,11 @@ spec:
               chmod 644 ${FINAL_SERVER_PROPERTIES_PATH} ${LOG4J_PROPERTIES_PATH} ${TOOLS_LOG4J_PROPERTIES_PATH}
               chown 1001:1001 ${FINAL_SERVER_PROPERTIES_PATH} ${LOG4J_PROPERTIES_PATH} ${TOOLS_LOG4J_PROPERTIES_PATH}
               
-
-              if [ ! -f "$DATA_DIR/meta.properties" ]; then
-                echo "Formatting Kafka storage for KRaft mode..."
-                /opt/bitnami/kafka/bin/kafka-storage.sh format -t $CLUSTER_ID -c $FINAL_SERVER_PROPERTIES_PATH
-              else
-                echo "Kafka storage already formatted"
-              fi
+              echo "Formatting Kafka data directory with cluster ID: {{ .Values.kafka.kafkaGlobalClusterId | default "pYdR4Xe6T9K7zTArYtR9XA" | quote }}"
+              /opt/bitnami/kafka/bin/kafka-storage.sh format \
+                -t {{ .Values.kafka.kafkaGlobalClusterId | default "pYdR4Xe6T9K7zTArYtR9XA" | quote }} \
+                -c ${FINAL_SERVER_PROPERTIES_PATH}
+                
               echo "All configuration files created and permissions set."
 
           volumeMounts:
