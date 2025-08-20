@@ -1,4 +1,4 @@
-{{- if eq .Values.apiGateway.ingress.mode "gce" }}
+
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -29,5 +29,3 @@ subjects:
   - kind: ServiceAccount
     name: {{ include "api-gateway.fullname" . }}-sa
     namespace: {{ .Release.Namespace }}
-
-{{- end -}}
