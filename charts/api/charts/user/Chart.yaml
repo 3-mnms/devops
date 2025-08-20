@@ -9,3 +9,4 @@ dependencies:
   - name: api-user-database
     version: 0.1.0
     repository: "file://./charts/database"
+    alias: apiUserDatabase

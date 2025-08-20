@@ -19,17 +19,16 @@ apiBooking:
 #
 apiBookingDatabase:
   replicaCount: 1
-
   auth:
     rootPassword: "rookies"
     database: booking
     username: rookies
     password: rookies
-
   service:
+    # ← 부모 템플릿에서 바로 읽어 쓰려면 name을 명시해 두는 게 안전합니다
+    name: api-booking-database-service
     type: ClusterIP
     port: 3306
-
   persistence:
     enabled: true
     size: 8Gi
@@ -42,16 +41,14 @@ apiBookingDatabase:
 
 apiBookingRedis:
   replicaCount: 1
-
   image:
     repository: redis
     tag: "7.2.4"
     pullPolicy: IfNotPresent
-
   service:
+    name: api-booking-redis-service     # ← 동일하게 명시
     type: ClusterIP
     port: 6379
-
   persistence:
     enabled: true
     size: 7Gi

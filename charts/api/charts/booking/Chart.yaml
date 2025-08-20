@@ -14,4 +14,4 @@ dependencies:
   - name: api-booking-redis
     version: 0.1.0
     repository: "file://./charts/redis"
-    alias: apiBookingRedis
+    alias: apiBookingRedis  
