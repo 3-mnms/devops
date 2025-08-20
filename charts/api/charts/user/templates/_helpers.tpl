@@ -34,5 +34,5 @@ expose-via-spring-gateway
 {{- end -}}
 
 {{- define "api-user.database.url" -}}
-jdbc:mariadb://{{ .Values.global.service.apiBookingDatabase | default "api-booking-database-service" }}:3306/{{ .Values.apiUser.database.name }}
+jdbc:mariadb://{{ .Values.global.service.apiUserDatabaseService | default "api-user-database-service" }}:3306/{{ .Values.apiUser.database.name }}
 {{- end -}}
