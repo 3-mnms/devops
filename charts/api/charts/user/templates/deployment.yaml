@@ -57,9 +57,9 @@ spec:
               value: {{ include "api-user.kafka.url" . }}
             # JWT 파일 경로
             - name: JWT_PRIVATE_PEM_PATH
-              value: "/etc/keys/private.pem"
+              value: "file:/etc/keys/private.pem"
             - name: JWT_PUBLIC_PEM_PATH
-              value: "/etc/keys/public.pem"
+              value: "file:/etc/keys/public.pem"
           volumeMounts:
             - name: jwt-keys
               mountPath: /etc/keys
