@@ -4,7 +4,6 @@ metadata:
   name: {{ include "api-gateway.fullname" . }}
   labels:
     app: {{ include "api-gateway.name" . }}
-    {{ include "api-gateway.exposelabel" . }}: "true"
 spec:
   replicas: {{ .Values.apiGateway.replicaCount | default 2 }}
   selector:
@@ -14,7 +13,6 @@ spec:
     metadata:
       labels:
         app: {{ include "api-gateway.name" . }}
-        {{ include "api-gateway.exposelabel" . | indent 4 }}: "true"
     spec: 
       serviceAccountName: {{ include "api-gateway.serviceaccountname" . }}
       containers: 
