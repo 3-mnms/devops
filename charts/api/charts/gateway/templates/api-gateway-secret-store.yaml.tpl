@@ -12,6 +12,6 @@ spec:
       auth:
         jwt:
           serviceAccountRef:
-            name: external-secrets-sa
-            namespace: external-secrets
+            name: {{ include "api-gateway.serviceaccountname" . }}
+            namespace: default
 {{- end -}}
