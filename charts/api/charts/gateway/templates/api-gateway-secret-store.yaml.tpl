@@ -1,5 +1,5 @@
 
-{{- if eq .Values.apiGateway.ingress.mode "aws" -}}
+{{- if eq .Values.apiGateway.ingress.mode "test" -}}
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
