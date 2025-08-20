@@ -116,3 +116,12 @@ kubernetes.io/ingress.global-static-ip-name: {{ .Values.apiGateway.ingress.gce.i
 {{- define "api-gateway.serviceaccountname" -}}
 {{ include "api-gateway.fullname" . }}-sa
 {{- end -}}
+
+
+{{- define "api-gateway.alb.serviceaccountname" -}}
+{{- if eq .Values.apiGateway.ingress.mode "aws" -}} 
+{{ .Values.apiGateway.serviceAccountName | default "aws-load-balancer-controller" }}
+{{- else -}}
+external-secrets-sa
+{{- end -}}
+{{- end -}}
