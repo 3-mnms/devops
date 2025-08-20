@@ -42,10 +42,7 @@ spec:
                   name: api-user-secret
                   key: MAIL_PASSWORD
             - name: DB_URL
-              valueFrom:
-                secretKeyRef:
-                  name: api-user-secret
-                  key: DB_URL
+              value: {{ include "api-user.database.url" .  }}
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -57,10 +54,7 @@ spec:
                   name: api-user-secret
                   key: DB_PASSWORD
             - name: KAFKA_SERVERS
-              valueFrom:
-                secretKeyRef:
-                  name: api-user-secret
-                  key: KAFKA_SERVERS
+              value: {{ include "api-user.kafka.url" . }}
             # JWT 파일 경로
             - name: JWT_PRIVATE_PEM_PATH
               value: "/etc/keys/private.pem"

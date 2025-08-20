@@ -32,3 +32,7 @@ expose-via-spring-gateway
 {{- $name := $svc.kafka | default "kafka-service" -}}
 {{- $name -}}.kafka.svc.cluster.local:9092
 {{- end -}}
+
+{{- define "api-user.database.url" -}}
+jdbc:mariadb://{{ .Values.global.service.apiBookingDatabase | default "api-booking-database-service" }}:3306/{{ .Values.apiUser.database.name }}
+{{- end -}}
