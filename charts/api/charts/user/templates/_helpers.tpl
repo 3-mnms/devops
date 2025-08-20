@@ -9,14 +9,14 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{- define "api-user.servicename" -}}
-{{- if .Values.global.service.apiUser }}
-{{- .Values.global.service.apiUser | trunc 63 | trimSuffix "-" }}
-{{- else if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
+{{- if .Values.global.service.apiUser -}}
+{{- .Values.global.service.apiUser | trunc 63 | trimSuffix "-" -}}
+{{- else if .Values.fullnameOverride -}}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
 api-user-service
-{{- end }}
-{{- end }}
+{{- end -}}
+{{- end -}}
 
 {{- define "api-user.exposelabel" -}}
 {{- if .Values.global.apiGateway.serviceLabel }}
