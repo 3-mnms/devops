@@ -25,3 +25,10 @@ api-user-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+{{- define "api-user.kafka.url" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.kafka | default "kafka-service" -}}
+{{- $name -}}.kafka.svc.cluster.local:9092
+{{- end -}}
