@@ -38,6 +38,8 @@ apiBookingDatabase:
 #
 # Redis Values
 #
+
+
 apiBookingRedis:
   replicaCount: 1
 
@@ -52,5 +54,5 @@ apiBookingRedis:
 
   persistence:
     enabled: true
-    size: 8Gi
-    storageClass: ""
+    size: 7Gi
+    storageClass: "gp2"
