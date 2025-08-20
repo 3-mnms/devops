@@ -16,7 +16,7 @@ spec:
         app: {{ include "api-gateway.name" . }}
         {{ include "api-gateway.exposelabel" . | indent 4 }}: "true"
     spec: 
-      serviceAccountName: {{ include "api-gateway.fullname" . }}-sa
+      serviceAccountName: {{ include "api-gateway.serviceaccountname" . }}
       containers: 
         - name: {{ include "api-gateway.name" . }}
           image: "{{ .Values.apiGateway.image.repository }}:{{ .Values.apiGateway.image.tag }}"

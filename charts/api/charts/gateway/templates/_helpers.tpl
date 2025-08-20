@@ -112,3 +112,11 @@ kubernetes.io/ingress.class: gce
 kubernetes.io/ingress.global-static-ip-name: {{ .Values.apiGateway.ingress.gce.ipName | default "rookies-tkcit-static-ip" }}
 {{- end -}}
 
+
+{{- define "api-gateway.serviceaccountname" -}}
+{{- if eq .Values.apiGateway.ingress.mode "aws"-}}
+{{ .Values.apiGateway.serviceAccountName | default "aws-load-balancer-controller" }}
+{{- else -}}
+{{ include "api-gateway.fullname" . }}-sa
+{{- end -}}
+{{- end -}}
