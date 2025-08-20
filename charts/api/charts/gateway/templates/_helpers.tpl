@@ -114,6 +114,6 @@ kubernetes.io/ingress.global-static-ip-name: {{ .Values.apiGateway.ingress.gce.i
 
 
 {{- define "api-gateway.serviceaccountname" -}}
-{{ include "api-gateway.fullname" . }}-sa
+{{ include "api-gateway.name" . }}-sa
 {{- end -}}
 
