@@ -1,11 +1,13 @@
-
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: {{ include "api-gateway.fullname" . }}-sa
   namespace: {{ .Release.Namespace }}
-
+  {{- if eq .Values.apiGateway.ingress.mode "aws" }}
+  annotations:
+    eks.amazonaws.com/role-arn: {{ .Values.apiGateway.ingress.aws.roleArn | default "arn:aws:iam::123456789012:role/RookiesApiGatewayRole" }}
+  {{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole

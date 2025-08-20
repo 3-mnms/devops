@@ -35,6 +35,6 @@ apiGateway:
       backendConfigName: api-gateway-backendconfig
       tlsSecret: api-gateway-tls-secret
     aws:
-      scheme: "internal-facing" 
+      scheme: "internet-facing" 
       certificateArn: "none"
       serviceAccountName: aws-load-balancer-controller

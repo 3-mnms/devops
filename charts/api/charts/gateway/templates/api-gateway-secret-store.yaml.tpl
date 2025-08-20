@@ -14,4 +14,25 @@ spec:
           serviceAccountRef:
             name: external-secrets-sa
             namespace: external-secrets
+
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: api-gateway-role-arn
+  namespace: gateway
+spec:
+  refreshInterval: 1h          
+  secretStoreRef:
+    name: aws-secrets-manager
+    kind: ClusterSecretStore
+  target:
+    name: api-gateway-role-arn
+    creationPolicy: Owner
+  data:
+    - secretKey: roleArn       
+      remoteRef:
+        key: /gateway/apiGateway/roleArn 
+
 {{- end -}}
+
