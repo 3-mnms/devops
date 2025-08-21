@@ -20,12 +20,12 @@ spec:
           imagePullPolicy: {{ .Values.apiPayment.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.apiPayment.service.port }}
-          # env:
+          env:
             # Spring Settings
-            # - name: SERVER_PORT
-            #   value: {{ .Values.apiPayment.service.port }}
-            # - name: SPRING_PROFILES_ACTIVE
-            #   value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
+            - name: SERVER_PORT
+              value: {{ .Values.apiPayment.service.port }}
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
 
             # Portone Settings
             # - name: PORTONE_API_SECRET
@@ -52,7 +52,7 @@ spec:
             # - name: SPRING_H2_CONSOLE_ENABLED
             #   value: false
 
-            # Kafka Settings
+            # # Kafka Settings
             # - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
             #   value: {{ include "api-payment.kafka.url" . }}
 
