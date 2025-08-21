@@ -57,7 +57,7 @@ spec:
       volumes:
         - name: jwt-keys
           secret:
-            secretName: api-user-secret
+            secretName: api-gateway-secret
             items:
               - key: JWT_PRIVATE_PEM_PATH
                 path: private.pem
