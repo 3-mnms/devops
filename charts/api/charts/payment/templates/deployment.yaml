@@ -33,20 +33,20 @@ spec:
                   key: PORTONE_API_SECRET
 
             # # Database Settings
-            # - name: SPRING_DATASOURCE_URL
-            #   value: {{ include "api-payment.database.url" . }}
-            # - name: SPRING_DATASOURCE_USERNAME
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-payment-secret
-            #       key: SPRING_DATASOURCE_USERNAME
-            # - name: SPRING_DATASOURCE_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-payment-secret
-            #       key: SPRING_DATASOURCE_PASSWORD
-            # - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-            #   value: update
+            - name: SPRING_DATASOURCE_URL
+              value: {{ include "api-payment.database.url" . }}
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
             # - name: SPRING_H2_CONSOLE_ENABLED
             #   value: false
 
