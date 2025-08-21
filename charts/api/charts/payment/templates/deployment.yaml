@@ -25,7 +25,7 @@ spec:
             - name: SERVER_PORT
               value: {{ .Values.apiPayment.service.port }}
             - name: SPRING_PROFILES_ACTIVE
-              value: "prod"
+              value: {{ .Values.apiGateway.spring.profiles | default "prod" }}
 
             # Portone Settings
             - name: PORTONE_API_SECRET
@@ -50,7 +50,7 @@ spec:
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
               value: update
             - name: SPRING_H2_CONSOLE_ENABLED
-              value: "false"
+              value: false
 
             # Kafka Settings
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
