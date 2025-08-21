@@ -69,3 +69,63 @@ Create the name of the service account to use
 {{- default "default" .Values.nginxClient.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+
+
+
+
+# =====================
+# AWS Ingress 관련 설정
+# ====================
+
+# Annotation 설정
+{{- define "nginx-client-ingress.aws.annotations.ingress" -}}
+kubernetes.io/ingress.class: alb
+alb.ingress.kubernetes.io/scheme: {{ .Values.nginxClient.ingress.aws.scheme | default "internet-facing" }}
+alb.ingress.kubernetes.io/target-type: ip
+{{- if eq .Values.nginxClient.ingress.tls true }}
+alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+alb.ingress.kubernetes.io/certificate-arn: {{ .Values.nginxClient.ingress.aws.certificateArn | quote }}
+{{- else }}
+alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+{{- end -}}
+{{- end -}}
+
+
+
+
+# =====================
+# GCE Ingress 관련 설정
+# =====================
+
+
+{{- define "nginx-client-ingress.gce.annotations.service" -}}
+kubernetes.io/ingress.class: gce
+cloud.google.com/backend-config: '{"ports":{"http":"{{ include "nginx-client-ingress.gce.backendconfing.name" . | trim }}"}}'
+{{- end -}}
+
+{{- define "nginx-client-ingress.gce.annotations.ingress" -}}
+kubernetes.io/ingress.class: gce
+kubernetes.io/ingress.global-static-ip-name: {{ .Values.nginxClient.ingress.gce.ipName | default "rookies-tkcit-static-ip" }}
+{{- end -}}
+
+
+{{- define "nginx-client.serviceaccountname" -}}
+{{ include "nginx-client.fullname" . }}-sa
+{{- end -}}
+
+
+
+#
+# Ingress 관련 설정
+#
+{{- define "nginx-client-ingress.host" -}}
+{{- if .Values.global.domain }}
+{{ .Values.global.domain }}
+{{- else }}
+rookies-tekcit.com
+{{- end }}
+{{- end }}
+
+
