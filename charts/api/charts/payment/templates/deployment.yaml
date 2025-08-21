@@ -22,10 +22,8 @@ spec:
             - containerPort: {{ .Values.apiPayment.service.port }}
           env:
             # Spring Settings
-            # - name: SERVER_PORT
-            #   value: {{ .Values.apiPayment.service.port }}
-            # - name: SPRING_PROFILES_ACTIVE
-            #   value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
 
             # Portone Settings
             - name: PORTONE_API_SECRET
