@@ -26,11 +26,11 @@ spec:
               value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
 
             # # Portone Settings
-            # - name: PORTONE_API_SECRET
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-payment-secret
-            #       key: PORTONE_API_SECRET
+            - name: PORTONE_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: PORTONE_API_SECRET
 
             # # Database Settings
             # - name: SPRING_DATASOURCE_URL
