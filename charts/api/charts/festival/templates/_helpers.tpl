@@ -25,3 +25,15 @@ api-festival-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+
+{{- define "api-festival.kafka.url" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.kafka | default "kafka-service" -}}
+{{- $name -}}.kafka.svc.cluster.local:9092
+{{- end -}}
+
+{{- define "api-festival.database.url" -}}
+jdbc:mariadb://{{ .Values.global.service.apiFestivalDatabase | default "api-festival-database-service" }}:3306/{{ .Values.apiFestival.database.name }}
+{{- end -}}
