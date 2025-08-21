@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "{{ .Values.nginxClient.image.repository }}:{{ .Values.nginxClient.image.tag }}"
+          image: rookiesdogun/nginx-client:test
+          # image: "{{ .Values.nginxClient.image.repository }}:{{ .Values.nginxClient.image.tag }}"
           imagePullPolicy: {{ .Values.nginxClient.image.pullPolicy }}
           ports:
             - containerPort: 80
