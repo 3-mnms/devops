@@ -46,6 +46,8 @@ spec:
 
           env:
             # JWT 파일 경로
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.apiGateway.spring.profiles | default "prod" }}
             - name: JWT_PRIVATE_PEM_PATH
               value: "file:/etc/keys/private.pem"
             - name: JWT_PUBLIC_PEM_PATH
