@@ -23,23 +23,23 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: prod
-            # - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
-            #   value: {{ include "api-festival.kafka.url" . }}
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: {{ include "api-festival.kafka.url" . }}
 
-            # - name: SPRING_DATASOURCE_URL
-            #   value: {{ include "api-festival.database.url" . }}
-            # - name: SPRING_DATASOURCE_USERNAME
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-festival-secret
-            #       key: SPRING_DATASOURCE_USERNAME
-            # - name: SPRING_DATASOURCE_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-festival-secret
-            #       key: SPRING_DATASOURCE_PASSWORD
-            # - name: FESTIVAL_API_KEY
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-festival-secret
-            #       key: FESTIVAL_API_KEY
+            - name: SPRING_DATASOURCE_URL
+              value: {{ include "api-festival.database.url" . }}
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: FESTIVAL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: FESTIVAL_API_KEY
