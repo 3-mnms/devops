@@ -25,33 +25,33 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
 
-            # Portone Settings
-            - name: PORTONE_API_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: api-payment-secret
-                  key: PORTONE_API_SECRET
+            # # Portone Settings
+            # - name: PORTONE_API_SECRET
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: api-payment-secret
+            #       key: PORTONE_API_SECRET
 
-            # Database Settings
-            - name: SPRING_DATASOURCE_URL
-              value: {{ include "api-payment.database.url" . }}
-            - name: SPRING_DATASOURCE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: api-payment-secret
-                  key: SPRING_DATASOURCE_USERNAME
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: api-payment-secret
-                  key: SPRING_DATASOURCE_PASSWORD
-            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-              value: update
-            - name: SPRING_H2_CONSOLE_ENABLED
-              value: false
+            # # Database Settings
+            # - name: SPRING_DATASOURCE_URL
+            #   value: {{ include "api-payment.database.url" . }}
+            # - name: SPRING_DATASOURCE_USERNAME
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: api-payment-secret
+            #       key: SPRING_DATASOURCE_USERNAME
+            # - name: SPRING_DATASOURCE_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: api-payment-secret
+            #       key: SPRING_DATASOURCE_PASSWORD
+            # - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+            #   value: update
+            # - name: SPRING_H2_CONSOLE_ENABLED
+            #   value: false
 
-            # Kafka Settings
-            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
-              value: {{ include "api-payment.kafka.url" . }}
+            # # Kafka Settings
+            # - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+            #   value: {{ include "api-payment.kafka.url" . }}
 
   
