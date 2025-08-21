@@ -23,9 +23,6 @@ spec:
             - containerPort: {{ .Values.apiGateway.service.port }}
               name: http
               protocol: TCP
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.apiGateway.spring.profiles | default "develop" | quote }}
 
           resources:
             requests:
@@ -46,3 +43,25 @@ spec:
               port: {{ .Values.apiGateway.service.targetPort }}
             initialDelaySeconds: 80
             periodSeconds: 5
+
+          env:
+            # JWT 파일 경로
+            - name: JWT_PRIVATE_PEM_PATH
+              value: "file:/etc/keys/private.pem"
+            - name: JWT_PUBLIC_PEM_PATH
+              value: "file:/etc/keys/public.pem"
+          volumeMounts:
+            - name: jwt-keys
+              mountPath: /etc/keys
+              readOnly: true
+      volumes:
+        - name: jwt-keys
+          secret:
+            secretName: api-user-secret
+            items:
+              - key: JWT_PRIVATE_PEM_PATH
+                path: private.pem
+              - key: JWT_PUBLIC_PEM_PATH
+                path: public.pem
+
+      
