@@ -25,7 +25,7 @@ spec:
             - name: SERVER_PORT
               value: {{ .Values.apiPayment.service.port }}
             - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.apiGateway.spring.profiles | default "prod" }}
+              value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
 
             # Portone Settings
             - name: PORTONE_API_SECRET
