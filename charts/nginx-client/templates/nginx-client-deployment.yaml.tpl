@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   name: {{ include "nginx-client.fullname" . }}
   labels:
+    app: {{ include "nginx-client.name" . }}
     {{- include "nginx-client.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.nginxClient.replicaCount }}
