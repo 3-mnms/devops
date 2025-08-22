@@ -86,11 +86,23 @@ alb.ingress.kubernetes.io/scheme: {{ .Values.nginxClient.ingress.aws.scheme | de
 alb.ingress.kubernetes.io/target-type: ip
 {{- if eq .Values.nginxClient.ingress.tls true }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
-alb.ingress.kubernetes.io/certificate-arn: {{ .Values.nginxClient.ingress.aws.certificateArn | quote }}
+alb.ingress.kubernetes.io/certificate-arn: (include "nginx-client-ingress.aws.certArn" .)
 {{- else }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- end -}}
 {{- end -}}
+
+#
+# SSL 설정
+#
+{{- define "nginx-client-ingress.aws.certArn" -}}
+{{- $secret := lookup "v1" "Secret" "nginx-client" "nginx-client-secret" -}}
+{{- if $secret }}
+  {{- $secret.data.SSL_ARN | b64dec }}
+{{- else }}
+  {{- fail "Secret nginx-client-secret not found in namespace nginx-client" }}
+{{- end }}
+{{- end }}
 
 
 
@@ -136,6 +148,4 @@ rookies-tekcit.com
 www.rookies-tekcit.com
 {{- end }}
 {{- end }}
-
-
 
