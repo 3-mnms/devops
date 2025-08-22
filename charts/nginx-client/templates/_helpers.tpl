@@ -86,7 +86,7 @@ alb.ingress.kubernetes.io/scheme: {{ .Values.nginxClient.ingress.aws.scheme | de
 alb.ingress.kubernetes.io/target-type: ip
 {{- if eq .Values.nginxClient.ingress.tls true }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
-alb.ingress.kubernetes.io/certificate-arn: (include "nginx-client-ingress.aws.certArn" .)
+alb.ingress.kubernetes.io/certificate-arn:  {{ include "nginx-client-ingress.aws.certArn" . | quote }}
 {{- else }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- end -}}
