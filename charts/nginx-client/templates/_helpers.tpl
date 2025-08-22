@@ -120,12 +120,22 @@ kubernetes.io/ingress.global-static-ip-name: {{ .Values.nginxClient.ingress.gce.
 #
 # Ingress 관련 설정
 #
-{{- define "nginx-client-ingress.host" -}}
+{{- define "nginx-client-ingress.url" -}}
 {{- if .Values.global.domain -}}
 {{ .Values.global.domain }}
 {{- else -}}
 rookies-tekcit.com
 {{- end }}
 {{- end }}
+
+
+{{- define "nginx-client-ingress.host" -}}
+{{- if .Values.global.domain }}
+{{- printf "www.%s" .Values.global.domain -}}
+{{- else }}
+www.rookies-tekcit.com
+{{- end }}
+{{- end }}
+
 
 
