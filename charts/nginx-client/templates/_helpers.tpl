@@ -55,6 +55,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "nginx-client.selectorLabels" -}}
+app: {{ include "nginx-client.name" . }}
 app.kubernetes.io/name: {{ include "nginx-client.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
