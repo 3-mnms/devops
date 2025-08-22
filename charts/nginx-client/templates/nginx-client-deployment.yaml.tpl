@@ -10,10 +10,12 @@ spec:
   replicas: {{ .Values.nginxClient.replicaCount }}
   selector:
     matchLabels:
+      app: {{ include "nginx-client.name" . }}
       {{- include "nginx-client.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
+        app: {{ include "nginx-client.name" . }}
         {{- include "nginx-client.selectorLabels" . | nindent 8 }}
     spec:
       containers:
