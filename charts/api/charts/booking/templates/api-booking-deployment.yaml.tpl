@@ -43,15 +43,15 @@ spec:
             limits:
               cpu: {{ .Values.apiBooking.resources.limits.cpu | default "500m" }}
               memory: {{ .Values.apiBooking.resources.limits.memory | default "1024Mi" }}
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: {{ .Values.apiBooking.service.port }}
-            initialDelaySeconds: 60
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: {{ .Values.apiBooking.service.port }}
-            initialDelaySeconds: 60
-            periodSeconds: 5
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiBooking.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiBooking.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 5

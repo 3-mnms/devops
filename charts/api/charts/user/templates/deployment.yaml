@@ -103,15 +103,15 @@ spec:
             limits:
               cpu: {{ .Values.apiUser.resources.limits.cpu | default "500m" }}
               memory: {{ .Values.apiUser.resources.limits.memory | default "1024Mi" }}
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: {{ .Values.apiUser.service.port }}
-            initialDelaySeconds: 60
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: {{ .Values.apiUser.service.port }}
-            initialDelaySeconds: 60
-            periodSeconds: 5
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiUser.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiUser.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 5
