@@ -87,3 +87,23 @@ spec:
             items:
               - key: FIREBASE_KEY_PATH
                 path: firebase-adminsdk.json
+
+          resources:
+            requests:
+              cpu: {{ .Values.apiUser.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiUser.resources.requests.memory | default "256Mi" }}
+            limits:
+              cpu: {{ .Values.apiUser.resources.limits.cpu | default "500m" }}
+              memory: {{ .Values.apiUser.resources.limits.memory | default "1024Mi" }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiUser.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiUser.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 5

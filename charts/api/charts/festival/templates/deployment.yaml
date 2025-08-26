@@ -45,3 +45,22 @@ spec:
                 secretKeyRef:
                   name: api-festival-secret
                   key: FESTIVAL_API_KEY
+          resources:
+            requests:
+              cpu: {{ .Values.apiFestival.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiFestival.resources.requests.memory | default "256Mi" }}
+            limits:
+              cpu: {{ .Values.apiFestival.resources.limits.cpu | default "500m" }}
+              memory: {{ .Values.apiFestival.resources.limits.memory | default "1024Mi" }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiFestival.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiFestival.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 5

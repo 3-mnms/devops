@@ -36,3 +36,22 @@ spec:
             - name: config-volume
               mountPath: /config
               readOnly: true
+          resources:
+            requests:
+              cpu: {{ .Values.apiBooking.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiBooking.resources.requests.memory | default "256Mi" }}
+            limits:
+              cpu: {{ .Values.apiBooking.resources.limits.cpu | default "500m" }}
+              memory: {{ .Values.apiBooking.resources.limits.memory | default "1024Mi" }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiBooking.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiBooking.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 5

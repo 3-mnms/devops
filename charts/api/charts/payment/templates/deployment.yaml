@@ -52,4 +52,22 @@ spec:
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
               value: {{ include "api-payment.kafka.url" . }}
 
-  
+          resources:
+            requests:
+              cpu: {{ .Values.apiPayment.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiPayment.resources.requests.memory | default "256Mi" }}
+            limits:
+              cpu: {{ .Values.apiPayment.resources.limits.cpu | default "500m" }}
+              memory: {{ .Values.apiPayment.resources.limits.memory | default "1024Mi" }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiPayment.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ .Values.apiPayment.service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 5
