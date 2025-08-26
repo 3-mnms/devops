@@ -55,14 +55,20 @@ spec:
                   key: DB_PASSWORD
             - name: KAFKA_SERVERS
               value: {{ include "api-user.kafka.url" . }}
-            # JWT 파일 경로
+            # Key  파일 경로
             - name: JWT_PRIVATE_PEM_PATH
               value: "file:/etc/keys/private.pem"
             - name: JWT_PUBLIC_PEM_PATH
               value: "file:/etc/keys/public.pem"
+            - name: FIREBASE_KEY_PATH
+              value: "file:/etc/firebase/firebase-adminsdk.json"
           volumeMounts:
             - name: jwt-keys
               mountPath: /etc/keys
+              readOnly: true
+                    volumeMounts:
+            - name: firebase-keys
+              mountPath: /etc/firebase
               readOnly: true
       volumes:
         - name: jwt-keys
@@ -73,3 +79,11 @@ spec:
                 path: private.pem
               - key: JWT_PUBLIC_PEM_PATH
                 path: public.pem
+              - key: JWT_PUBLIC_PEM_PATH
+                path: public.pem
+        - name: firebase-keys
+          secret:
+            secretName: api-user-secret
+            items:
+              - key: FIREBASE_KEY_PATH
+                path: firebase-adminsdk.json
