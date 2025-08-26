@@ -6,6 +6,7 @@ apiGateway:
     pullPolicy: IfNotPresent
   spring:
     profiles: local
+    corsUrl: http://www.rookies-tekcit.com
   resources:
     requests:
       cpu: "256m"

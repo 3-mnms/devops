@@ -52,6 +52,8 @@ spec:
               value: "file:/etc/keys/private.pem"
             - name: JWT_PUBLIC_PEM_PATH
               value: "file:/etc/keys/public.pem"
+            - name: CORS_URL
+              value: {{ .Values.apiGateway.spring.corsUrl | default "http://www.rookies-tekcit.com" }}
           volumeMounts:
             - name: jwt-keys
               mountPath: /etc/keys
