@@ -21,6 +21,10 @@ spec:
           ports:
             - containerPort: {{ .Values.apiUser.service.port }}
           env:
+          
+            - name: KAKAO_REDIRECT_URL
+              value: {{ printf "api.%s%s" .Values.global.domain .Values.apiUser.kakao.redirectUri | quote }}
+
             - name: KAKAO_REST_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -55,6 +59,10 @@ spec:
                   key: DB_PASSWORD
             - name: KAFKA_SERVERS
               value: {{ include "api-user.kafka.url" . }}
+            
+            - name: FRONTEND_URL
+              value: {{ printf "www.%s" .Values.global.domain | quote }}
+              
             # Key  파일 경로
             - name: JWT_PRIVATE_PEM_PATH
               value: "file:/etc/keys/private.pem"

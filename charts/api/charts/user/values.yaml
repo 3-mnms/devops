@@ -18,6 +18,11 @@ apiUser:
     username: rookies
     password: rookies
 
+  kakao:
+    redirectUri: /api/auth/kakao/callback
+  login:
+    uri: /auth/signup/kakao
+    
 apiUserDatabase:
   replicaCount: 1
 
