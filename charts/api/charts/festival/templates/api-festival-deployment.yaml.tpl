@@ -25,9 +25,14 @@ spec:
               value: "8080"
             - name: SPRING_PROFILES_ACTIVE
               value: prod
+            - name: TZ
+              value: Asia/Seoul
+
+            # Kafka
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
               value: {{ include "api-festival.kafka.url" . }}
 
+            # Database
             - name: SPRING_DATASOURCE_URL
               value: {{ include "api-festival.database.url" . }}
             - name: SPRING_DATASOURCE_USERNAME
@@ -40,11 +45,44 @@ spec:
                 secretKeyRef:
                   name: api-festival-secret
                   key: SPRING_DATASOURCE_PASSWORD
+
+            
+            # External Service
             - name: FESTIVAL_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: api-festival-secret
                   key: FESTIVAL_API_KEY
+            
+            - name: AI_URL
+              value: {{ .Values.global.service.apiFestivalAi | default "http://api-festival-ai-service:8084" }}
+
+            # AWS Setting
+            - name: AWS_S3_BUCKET_NAME
+              valueFrom: 
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: AWS_S3_BUCKET_NAME
+            - name: AWS_CREDENTIALS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_CREDENTIALS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: AWS_REGION
+            - name: AWS_STS_ROLE_ARN
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: AWS_STS_ROLE_ARN
           resources:
             requests:
               cpu: {{ .Values.apiFestival.resources.requests.cpu | default "256m" }}
