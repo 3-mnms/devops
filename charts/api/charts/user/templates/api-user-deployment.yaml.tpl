@@ -22,6 +22,7 @@ spec:
             - containerPort: {{ .Values.apiUser.service.port }}
           env:
           
+            # Kakao
             - name: KAKAO_REDIRECT_URL
               value: {{ printf "api.%s%s" .Values.global.domain .Values.apiUser.kakao.redirectUri | quote }}
 
@@ -35,6 +36,8 @@ spec:
                 secretKeyRef:
                   name: api-user-secret
                   key: KAKAO_ADMIN_KEY
+            
+            # Mail 
             - name: MAIL_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -45,6 +48,8 @@ spec:
                 secretKeyRef:
                   name: api-user-secret
                   key: MAIL_PASSWORD
+            
+            # Database
             - name: DB_URL
               value: {{ include "api-user.database.url" .  }}
             - name: DB_USERNAME
@@ -56,20 +61,24 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: api-user-secret
-                  key: DB_PASSWORD
+                  key: DB_PASSWORD.
+            
+            # Kafka
             - name: KAFKA_SERVERS
               value: {{ include "api-user.kafka.url" . }}
             
             - name: FRONTEND_URL
               value: {{ printf "www.%s" .Values.global.domain | quote }}
               
-            # Key  파일 경로
+            # Files
             - name: JWT_PRIVATE_PEM_PATH
               value: "file:/etc/keys/private.pem"
             - name: JWT_PUBLIC_PEM_PATH
               value: "file:/etc/keys/public.pem"
             - name: FIREBASE_KEY_PATH
               value: "/etc/firebase/firebase-adminsdk.json"
+
+
           volumeMounts:
             - name: jwt-keys
               mountPath: /etc/keys
