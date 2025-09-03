@@ -31,8 +31,24 @@ spec:
                 secretKeyRef:
                   name: api-payment-secret
                   key: PORTONE_API_SECRET
+            - name: PORTONE_CHANNEL_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: PORTONE_CHANNEL_KEY
+            - name: PORTONE_STORE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: PORTONE_STORE_ID
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: WEBHOOK_SECRET
 
-            # # Database Settings
+
+            # Database Settings
             - name: SPRING_DATASOURCE_URL
               value: {{ include "api-payment.database.url" . }}
             - name: SPRING_DATASOURCE_USERNAME
@@ -47,6 +63,7 @@ spec:
                   key: SPRING_DATASOURCE_PASSWORD
             - name: SPRING_JPA_HIBERNATE_DDL_AUTO
               value: update
+
 
             # Kafka Settings
             - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
