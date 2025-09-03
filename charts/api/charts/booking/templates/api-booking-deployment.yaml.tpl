@@ -29,9 +29,50 @@ spec:
             - containerPort: {{ .Values.apiBooking.service.port }}
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: dev
-            - name: SPRING_CONFIG_LOCATION
-              value: "classpath:/,file:/config/"
+              value: "prod"
+
+            # Database
+            - name: DB_URL
+              value: "jdbc:mariadb://{{ .Values.global.service.apiBookingDatabase | default "api-booking-database-service" }}:{{ .Values.apiBookingDatabase.service.port | default 3306 }}/{{ .Values.apiBookingDatabase.auth.database | default "booking" }}"
+            - name: DB_USERNAME
+              value: {{ .Values.apiBookingDatabase.auth.username | default "rookies" }}
+            - name: DB_PASSWORD
+              value: {{ .Values.apiBookingDatabase.auth.password | default "rookies" }}
+            
+            # Redis
+            - name: REDIS_SERVER_URL
+              value: {{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
+            - name: REDIS_PORT
+              value: 6379
+
+            # Kafka
+            - name: KAFKA_SERVERS
+              value: {{ include "api-booking.kafka-server" . }}
+
+            # External APIs
+            - name: BASE_API
+              value: {{ include "api-booking.user-server" . }}
+            - name: USER_BASE_API
+              value: {{ include "api-booking.user-server" . }}
+            - name: USER_INFO_API
+              value: /api/users/booking-profile
+            - name: USER_STATS_LIST_API
+              value: /api/users/statisticsList
+            - name: BOOKING_USER_INFO_API
+              value: /api/users/reservationList
+
+            # OCR Settings  
+            - name: OCR_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: OCR_SECRET_KEY
+            - name: OCR_INVOKE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: OCR_INVOKE_URL
+
           volumeMounts:
             - name: config-volume
               mountPath: /config
@@ -43,6 +84,7 @@ spec:
             limits:
               cpu: {{ .Values.apiBooking.resources.limits.cpu | default "500m" }}
               memory: {{ .Values.apiBooking.resources.limits.memory | default "1024Mi" }}
+          # actuator 가 없어서 주석처리
           # livenessProbe:
           #   httpGet:
           #     path: /actuator/health
