@@ -61,7 +61,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: api-user-secret
-                  key: DB_PASSWORD.
+                  key: DB_PASSWORD
             
             # Kafka
             - name: KAFKA_SERVERS
