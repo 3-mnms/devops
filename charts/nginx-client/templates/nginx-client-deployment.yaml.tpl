@@ -25,16 +25,10 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-            - name: nginx-config
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
             - name: env-secret
               mountPath: /usr/share/nginx/html/env.js
               subPath: env.js
       volumes:
-        - name: nginx-config
-          configMap:
-            name: {{ include "nginx-client.fullname" . }}-config
         - name: env-secret
           secret:
             secretName: nginx-client-secret
