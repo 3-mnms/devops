@@ -76,6 +76,14 @@ spec:
                 secretKeyRef:
                   name: api-booking-secret
                   key: OCR_INVOKE_URL
+          
+            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_KAFKA
+              value: DEBUG
+            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_KAFKA_LISTENER  
+              value: DEBUG
+            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_KAFKA_CORE  
+              value: DEBUG
+            
           resources:
             requests:
               cpu: {{ .Values.apiBooking.resources.requests.cpu | default "256m" }}
