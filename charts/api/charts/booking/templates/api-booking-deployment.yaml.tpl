@@ -31,7 +31,8 @@ spec:
               value: {{ .Values.apiBookingDatabase.auth.username | default "rookies" }}
             - name: DB_PASSWORD
               value: {{ .Values.apiBookingDatabase.auth.password | default "rookies" }}
-            
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
             # Redis
             - name: REDIS_SERVER_URL
               value: {{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
