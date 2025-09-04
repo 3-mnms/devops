@@ -14,13 +14,6 @@ spec:
       labels:
         app: {{ include "api-booking.fullname" . }}
     spec:
-      volumes:
-        - name: config-volume
-          configMap:
-            name: api-booking-booking-config
-            items:
-              - key: application-dev.properties
-                path: application-dev.properties
       containers:
         - name: booking
           image: "{{ .Values.apiBooking.image.registry }}/{{ .Values.apiBooking.image.repository }}:{{ .Values.apiBooking.image.tag }}"
