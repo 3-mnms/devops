@@ -33,8 +33,8 @@ spec:
               value: {{ .Values.apiBookingDatabase.auth.password | default "rookies" }}
             
             # Redis
-            - name: SPRING_DATA_REDIS_HOST
-              value: {{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
+            - name: REDIS_SERVER_URL
+              value: api-booking-redis-service
             - name: REDIS_PORT
               value: 6379
 
