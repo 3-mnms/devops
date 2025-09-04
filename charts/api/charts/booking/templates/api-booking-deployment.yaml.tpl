@@ -34,9 +34,9 @@ spec:
             
             # Redis
             - name: REDIS_SERVER_URL
-              value: "api-booking-redis-service"
-            # - name: REDIS_PORT
-            #   value: 6379
+              value: {{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
+            - name: REDIS_PORT
+              value: "6379"
 
             # Kafka
             - name: KAFKA_SERVERS
