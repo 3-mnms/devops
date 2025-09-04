@@ -47,7 +47,7 @@ spec:
               value: {{ include "api-booking.user-server" . }}
             - name: USER_BASE_API
               value: {{ include "api-booking.user-server" . }}
-            - name: USER_INFO_API
+            - name: USER_EMAIL_INFO_API
               value: /api/users/booking-profile
             - name: USER_STATS_LIST_API
               value: /api/users/statisticsList
