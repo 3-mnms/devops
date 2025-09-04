@@ -45,6 +45,11 @@ spec:
                 secretKeyRef:
                   name: api-festival-secret
                   key: SPRING_DATASOURCE_PASSWORD
+            - name: KAKAO_REST_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-festival-secret
+                  key: KAKAO_REST_API_KEY
 
             
             # External Service
@@ -63,12 +68,12 @@ spec:
                 secretKeyRef:
                   name: api-festival-secret
                   key: AWS_S3_BUCKET_NAME
-            - name: AWS_CREDENTIALS_ACCESS_KEY_ID
+            - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
                   name: api-festival-secret
                   key: AWS_ACCESS_KEY_ID
-            - name: AWS_CREDENTIALS_SECRET_ACCESS_KEY
+            - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   name: api-festival-secret
