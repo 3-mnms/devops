@@ -60,7 +60,17 @@ spec:
               value: /api/users/statisticsList
             - name: BOOKING_USER_INFO_API
               value: /api/users/reservationList
-
+            
+            - name: MAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: MAIL_USERNAME
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: MAIL_PASSWORD
             # OCR Settings  
             - name: OCR_SECRET_KEY
               valueFrom:
