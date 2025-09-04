@@ -84,6 +84,8 @@ spec:
             - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_KAFKA_CORE  
               value: DEBUG
             
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: create
           resources:
             requests:
               cpu: {{ .Values.apiBooking.resources.requests.cpu | default "256m" }}
