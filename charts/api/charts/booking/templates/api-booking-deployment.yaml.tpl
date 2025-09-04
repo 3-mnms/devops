@@ -33,48 +33,48 @@ spec:
               value: {{ .Values.apiBookingDatabase.auth.password | default "rookies" }}
             
             # Redis
-            - name: REDIS_SERVER_URL
-              value: {{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
-            - name: REDIS_PORT
-              value: 6379
+            # - name: REDIS_SERVER_URL
+            #   value: {{ .Values.global.service.apiBookingRedis | default "api-booking-redis-service" }}
+            # - name: REDIS_PORT
+            #   value: 6379
 
             # Kafka
-            # - name: KAFKA_SERVERS
-            #   value: {{ include "api-booking.kafka-server" . }}
+            - name: KAFKA_SERVERS
+              value: {{ include "api-booking.kafka-server" . }}
 
-            # # External APIs
-            # - name: BASE_API
-            #   value: {{ include "api-booking.user-server" . }}
-            # - name: USER_BASE_API
-            #   value: {{ include "api-booking.user-server" . }}
-            # - name: USER_EMAIL_INFO_API
-            #   value: /api/users/booking-profile
-            # - name: USER_STATS_LIST_API
-            #   value: /api/users/statisticsList
-            # - name: BOOKING_USER_INFO_API
-            #   value: /api/users/reservationList
+            # External APIs
+            - name: BASE_API
+              value: {{ include "api-booking.user-server" . }}
+            - name: USER_BASE_API
+              value: {{ include "api-booking.user-server" . }}
+            - name: USER_INFO_API
+              value: /api/users/booking-profile
+            - name: USER_STATS_LIST_API
+              value: /api/users/statisticsList
+            - name: BOOKING_USER_INFO_API
+              value: /api/users/reservationList
             
-            # - name: MAIL_USERNAME
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-booking-secret
-            #       key: MAIL_USERNAME
-            # - name: MAIL_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-booking-secret
-            #       key: MAIL_PASSWORD
-            # # OCR Settings  
-            # - name: OCR_SECRET_KEY
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-booking-secret
-            #       key: OCR_SECRET_KEY
-            # - name: OCR_INVOKE_URL
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: api-booking-secret
-            #       key: OCR_INVOKE_URL
+            - name: MAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: MAIL_USERNAME
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: MAIL_PASSWORD
+            # OCR Settings  
+            - name: OCR_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: OCR_SECRET_KEY
+            - name: OCR_INVOKE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: api-booking-secret
+                  key: OCR_INVOKE_URL
           resources:
             requests:
               cpu: {{ .Values.apiBooking.resources.requests.cpu | default "256m" }}
