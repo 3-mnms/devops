@@ -75,11 +75,6 @@ spec:
                 secretKeyRef:
                   name: api-booking-secret
                   key: OCR_INVOKE_URL
-
-          volumeMounts:
-            - name: config-volume
-              mountPath: /config
-              readOnly: true
           resources:
             requests:
               cpu: {{ .Values.apiBooking.resources.requests.cpu | default "256m" }}
