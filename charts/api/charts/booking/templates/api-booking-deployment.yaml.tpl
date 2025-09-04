@@ -23,7 +23,8 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "prod"
-
+            - name: LOGGING_LEVEL_ROOT
+              value: "DEBUG"
             # Database
             - name: DB_URL
               value: "jdbc:mariadb://{{ .Values.global.service.apiBookingDatabase | default "api-booking-database-service" }}:{{ .Values.apiBookingDatabase.service.port | default 3306 }}/{{ .Values.apiBookingDatabase.auth.database | default "booking" }}"
