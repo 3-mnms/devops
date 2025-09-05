@@ -23,7 +23,7 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "prod"
-            - name: LOGGING_LEVEL_ROOT
+            - name: LOGGING_LEVEL_COM_MNMS_BOOKING_SERVICE
               value: "DEBUG"
             # Database
             - name: DB_URL
