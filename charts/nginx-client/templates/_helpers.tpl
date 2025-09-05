@@ -87,6 +87,7 @@ alb.ingress.kubernetes.io/target-type: ip
 {{- if eq .Values.nginxClient.ingress.tls true }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
 alb.ingress.kubernetes.io/certificate-arn:  {{ .Values.nginxClient.ingress.aws.certificateArn | quote }}
+alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
 {{- else }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- end -}}
