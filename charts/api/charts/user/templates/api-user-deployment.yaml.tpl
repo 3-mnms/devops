@@ -24,7 +24,7 @@ spec:
           
             # Kakao
             - name: KAKAO_REDIRECT_URL
-              value: {{ printf "api.%s%s" .Values.global.domain .Values.apiUser.kakao.redirectUri | quote }}
+              value: {{ printf "api.%s" .Values.global.domain  | quote }}
 
             - name: KAKAO_REST_API_KEY
               valueFrom:
