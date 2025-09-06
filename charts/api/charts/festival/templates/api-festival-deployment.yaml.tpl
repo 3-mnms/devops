@@ -88,6 +88,11 @@ spec:
                 secretKeyRef:
                   name: api-festival-secret
                   key: AWS_STS_ROLE_ARN
+            # GEOCODE
+            - name: USER_GEOCODE_API
+              value: "/api/users/geocodeInfo"
+            - name: BASE_API
+              value: {{ printf "https://api.%s" .Values.global.domain  | quote }}
           resources:
             requests:
               cpu: {{ .Values.apiFestival.resources.requests.cpu | default "256m" }}
