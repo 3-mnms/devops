@@ -19,7 +19,6 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: rookiesdogun/nginx-client:test3
           image: "{{ .Values.nginxClient.image.registry }}/{{ .Values.nginxClient.image.repository }}:{{ .Values.nginxClient.image.tag }}"
           imagePullPolicy: {{ .Values.nginxClient.image.pullPolicy }}
           ports:
@@ -28,7 +27,13 @@ spec:
             - name: env-secret
               mountPath: /usr/share/nginx/html/env.js
               subPath: env.js
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
       volumes:
         - name: env-secret
           secret:
             secretName: nginx-client-secret
+        - name: nginx-conf
+          configMap:
+            name: {{ include "nginx-client.fullname" . }}-config

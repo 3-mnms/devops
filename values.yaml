@@ -18,6 +18,7 @@ global:
     apiUserDatabase: api-user-database-service
 
     client: nginx-client-service
+    mobile: nginx-mobile-service
     admin: nginx-admin-service
   apiGateway:
     serviceLabel: expose-via-spring-gateway
