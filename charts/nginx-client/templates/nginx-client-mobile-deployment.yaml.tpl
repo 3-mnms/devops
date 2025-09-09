@@ -33,7 +33,7 @@ spec:
       volumes:
         - name: env-secret
           secret:
-            secretName: nginx-clien-secret
+            secretName: nginx-client-secret
         - name: nginx-conf
           configMap:
             name: {{ include "nginx-client.fullname" . }}-config
