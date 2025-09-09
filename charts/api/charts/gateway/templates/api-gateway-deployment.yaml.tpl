@@ -20,7 +20,7 @@ spec:
           image: "{{ .Values.apiGateway.image.repository }}:{{ .Values.apiGateway.image.tag }}"
           imagePullPolicy: {{ .Values.apiGateway.image.pullPolicy | default "IfNotPresent" }}
           ports:
-            - containerPort: {{ .Values.apiGateway.service.targetPort }}
+            - containerPort: {{ .Values.apiGateway.service.port }}
               name: http
               protocol: TCP
 
