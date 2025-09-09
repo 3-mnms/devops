@@ -12,6 +12,9 @@ data:
       index index.html;
 
       if ($http_user_agent ~* "Mobile|Android|iPhone") {
+          add_header Cache-Control "no-cache, no-store, must-revalidate";
+          add_header Pragma "no-cache";
+          add_header Expires 0;
           return 301 https://m.{{ .Values.global.domain }}$request_uri;
       }
 
@@ -29,6 +32,9 @@ data:
       index index.html;
 
       if ($http_user_agent !~* "Mobile|Android|iPhone") {
+          add_header Cache-Control "no-cache, no-store, must-revalidate";
+          add_header Pragma "no-cache";
+          add_header Expires 0;
           return 301 https://www.{{ .Values.global.domain }}$request_uri;
       }
 
