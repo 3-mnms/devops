@@ -29,7 +29,7 @@ spec:
               subPath: env.js
             - name: nginx-conf
               mountPath: /etc/nginx/conf.d/default.conf
-              subPath: default.conf
+              subPath: default-pc.conf
       volumes:
         - name: env-secret
           secret:
