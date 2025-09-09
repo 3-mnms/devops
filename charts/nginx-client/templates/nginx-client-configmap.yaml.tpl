@@ -10,19 +10,20 @@ data:
 
       root /usr/share/nginx/html;
       index index.html;
-      
+
       if ($http_user_agent = "ELB-HealthChecker/2.0") {
           return 200 "healthy";
       }
 
       if ($http_user_agent ~* "Mobile|Android|iPhone") {
-          add_header Cache-Control "no-cache, no-store, must-revalidate";
-          add_header Pragma "no-cache";
-          add_header Expires 0;
+
           return 301 https://m.{{ .Values.global.domain }}$request_uri;
       }
 
       location / {
+          add_header Cache-Control "no-cache, no-store, must-revalidate";
+          add_header Pragma "no-cache";
+          add_header Expires 0;
           try_files $uri /index.html;
       }
     }
@@ -40,13 +41,15 @@ data:
       }
 
       if ($http_user_agent !~* "Mobile|Android|iPhone") {
-          add_header Cache-Control "no-cache, no-store, must-revalidate";
-          add_header Pragma "no-cache";
-          add_header Expires 0;
           return 301 https://www.{{ .Values.global.domain }}$request_uri;
       }
 
       location / {
+      
+          add_header Cache-Control "no-cache, no-store, must-revalidate";
+          add_header Pragma "no-cache";
+          add_header Expires 0;
+          
           try_files $uri /index.html;
       }
     }
