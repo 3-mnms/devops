@@ -98,6 +98,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 kubernetes.io/ingress.class: alb
 alb.ingress.kubernetes.io/scheme: {{ .Values.nginxClient.ingress.aws.scheme | default "internet-facing" }}
 alb.ingress.kubernetes.io/target-type: ip
+alb.ingress.kubernetes.io/healthcheck-path: /health
+alb.ingress.kubernetes.io/success-codes: "200"
 {{- if eq .Values.nginxClient.ingress.tls true }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
 alb.ingress.kubernetes.io/certificate-arn:  {{ .Values.nginxClient.ingress.aws.certificateArn | quote }}
