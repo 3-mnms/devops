@@ -18,7 +18,7 @@ data:
         }
 
         if ($host != $redirect_domain) {
-            return 301 https://$redirect_domain$request_uri;
+            return 302 https://$redirect_domain$request_uri;
         }
 
         root /usr/share/nginx/html;
@@ -47,7 +47,7 @@ data:
         }
 
         if ($host != $redirect_domain) {
-            return 301 https://$redirect_domain$request_uri;
+            return 302 https://$redirect_domain$request_uri;
         }
 
         root /usr/share/nginx/html;
