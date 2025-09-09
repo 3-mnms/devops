@@ -10,13 +10,11 @@ data:
 
       root /usr/share/nginx/html;
       index index.html;
-
-      location /health {
-          access_log off;
-          return 200 'healthy';
-          add_header Content-Type text/plain;
-      }
       
+      if ($http_user_agent = "ELB-HealthChecker/2.0") {
+          return 200 "healthy";
+      }
+
       if ($http_user_agent ~* "Mobile|Android|iPhone") {
           add_header Cache-Control "no-cache, no-store, must-revalidate";
           add_header Pragma "no-cache";
@@ -37,10 +35,8 @@ data:
       root /usr/share/nginx/html;
       index index.html;
 
-      location /health {
-          access_log off;
-          return 200 'healthy';
-          add_header Content-Type text/plain;
+      if ($http_user_agent = "ELB-HealthChecker/2.0") {
+          return 200 "healthy";
       }
 
       if ($http_user_agent !~* "Mobile|Android|iPhone") {
