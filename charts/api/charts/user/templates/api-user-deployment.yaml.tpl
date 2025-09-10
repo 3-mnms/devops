@@ -68,7 +68,7 @@ spec:
               value: {{ include "api-user.kafka.url" . }}
             
             - name: FRONTEND_URL
-              value: {{ printf "www.%s" .Values.global.domain | quote }}
+              value: {{ printf "https://www.%s" .Values.global.domain | quote }}
               
             # Files
             - name: JWT_PRIVATE_PEM_PATH
