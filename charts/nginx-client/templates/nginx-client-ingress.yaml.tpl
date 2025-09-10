@@ -12,7 +12,7 @@ metadata:
 
 spec:
   rules:
-    - host: {{ include "nginx-client-ingress.host" . }}
+    - host: {{ include "nginx-client-ingress.clientHost" . }}
       http:
         paths:
           - path: {{ .Values.nginxClient.ingress.path | default "/" }}
@@ -23,11 +23,25 @@ spec:
                 port:
                   number: {{ .Values.nginxClient.service.port }}
 
+    - host: {{ include "nginx-client-ingress.mobileHost" . }}
+      http:
+        paths:
+          - path: {{ .Values.nginxClient.ingress.path | default "/" }}
+            pathType: {{ .Values.nginxClient.ingress.pathType | default "Prefix" | title }}
+            backend:
+              service:
+                name: {{ include "nginx-client-mobile.serviceName" . }}
+                port:
+                  number: {{ .Values.nginxClient.service.port }}
+
       
   {{- if and (eq .Values.nginxClient.ingress.mode "gce") .Values.nginxClient.ingress.tls }}
   tls:
     - hosts:
-        - {{ include "nginx-client-ingress.host" . }}
+        - {{ include "nginx-client-ingress.clientHost" . }}
+      secretName: {{ .Values.nginxClient.ingress.gce.tlsSecret | default "nginx-client-tls-secret" }}
+    - hosts:
+        - {{ include "nginx-client-ingress.mobileHost" . }}
       secretName: {{ .Values.nginxClient.ingress.gce.tlsSecret | default "nginx-client-tls-secret" }}
   {{- end }}
 {{- end }}
