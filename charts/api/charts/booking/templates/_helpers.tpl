@@ -34,7 +34,7 @@ expose-via-spring-gateway
 {{- end -}}
 
 {{- define "api-booking.user-server" -}}
-{{ printf "%s.user.svc.cluster.local:%d" (default "api-user-service" .Values.global.service.apiUser) 8080 }}
+{{ printf "http://%s.user.svc.cluster.local:%d" (default "api-user-service" .Values.global.service.apiUser) 8080 }}
 {{- end -}}
 
 
