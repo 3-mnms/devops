@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "db-proxy.name" . }}
-  namespace: d
+  namespace: db-proxy
 spec:
   replicas: 1
   selector:

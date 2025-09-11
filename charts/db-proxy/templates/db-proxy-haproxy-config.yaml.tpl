@@ -20,7 +20,7 @@ data:
     listen payment-db
         bind *:{{ .Values.dbProxy.payment.port }}
         mode tcp
-        server payment-db-svc {{ .Values.global.apiPaymentDatabase }}.payment.svc.cluster.local:3306 check
+        server payment-db-svc {{ .Values.global.service.apiPaymentDatabase }}.payment.svc.cluster.local:3306 check
 
     listen user-db
         bind *:{{ .Values.dbProxy.user.port }}
