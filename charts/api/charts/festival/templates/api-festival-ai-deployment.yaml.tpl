@@ -31,3 +31,13 @@ spec:
               secretKeyRef:
                 name: api-festival-secret
                 key: AWS_BEDROCK_API_KEY
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: api-festival-secret
+                key: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: api-festival-secret
+                key: AWS_SECRET_ACCESS_KEY
