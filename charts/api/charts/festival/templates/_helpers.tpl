@@ -58,3 +58,4 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- $name := $svc.apiFestivalAi | default "api-festival-ai" -}}
 {{- $name -}}
 {{- end }}
+
