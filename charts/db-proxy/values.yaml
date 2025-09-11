@@ -1,0 +1,13 @@
+dbProxy:
+  payment:
+    port: 4000
+    nodePort: 40000
+  user:
+    port: 4001
+    nodePort: 40001
+  festival:
+    port: 4002
+    nodePort: 40002
+  booking:
+    port: 4003
+    nodePort: 40003
