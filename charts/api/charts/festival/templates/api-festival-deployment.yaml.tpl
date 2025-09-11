@@ -60,8 +60,9 @@ spec:
                   key: FESTIVAL_API_KEY
             
             - name: AI_URL
-              value: {{ printf "http://%s:%s" (.Values.global.service.apiFestivalAi | default "api-festival-ai-service") (.Values.apiFestivalAi.service.port | default "8084") }}
-
+              value: {{ printf "http://%s:%s" \
+                      (.Values.global.service.apiFestivalAi | default "api-festival-ai-service") \
+                      (.Values.global.service.apiFestivalAiPort | default "8084") }}
             # AWS Setting
             - name: AWS_S3_BUCKET_NAME
               valueFrom: 
