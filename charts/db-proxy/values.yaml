@@ -1,13 +1,16 @@
 dbProxy:
   payment:
     port: 4000
-    nodePort: 30000
+    targetPort: 4000
   user:
     port: 4001
-    nodePort: 30001
+    targetPort: 4001
   festival:
     port: 4002
-    nodePort: 30002
+    targetPort: 4002
   booking:
     port: 4003
-    nodePort: 30003
+    targetPort: 4003
+  kafkaUi:
+    port: 4010
+    targetPort: 8080

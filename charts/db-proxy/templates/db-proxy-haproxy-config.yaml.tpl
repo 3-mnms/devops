@@ -36,3 +36,8 @@ data:
         bind *:{{ .Values.dbProxy.booking.port }}
         mode tcp
         server booking-db-svc {{ .Values.global.service.apiBookingDatabase }}.booking.svc.cluster.local:3306 check
+
+    listen kafka-ui
+      bind *:8080
+      mode http
+      server kafka-ui kafka-rookies-kafka-ui.kafka.svc.cluster.local:8080 check

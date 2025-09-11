@@ -10,13 +10,16 @@ spec:
   ports:
     - name: payment-db
       port: {{ .Values.dbProxy.payment.port }}
-      targetPort: {{ .Values.dbProxy.payment.port }}
+      targetPort: {{ .Values.dbProxy.payment.targetPort }}
     - name: user-db
       port: {{ .Values.dbProxy.user.port }}
-      targetPort: {{ .Values.dbProxy.user.port }}
+      targetPort: {{ .Values.dbProxy.user.targetPort }}
     - name: festival-db
       port: {{ .Values.dbProxy.festival.port }}
-      targetPort: {{ .Values.dbProxy.festival.port }}
+      targetPort: {{ .Values.dbProxy.festival.targetPort }}
     - name: booking-db
       port: {{ .Values.dbProxy.booking.port }}
-      targetPort: {{ .Values.dbProxy.booking.port }}
+      targetPort: {{ .Values.dbProxy.booking.targetPort }}
+    - name: kafka-ui
+      port: {{ .Values.dbProxy.kafkaUi.port }}
+      targetPort: {{ .Values.dbProxy.kafkaUi.targetPort }}
