@@ -67,6 +67,10 @@ spec:
             - name: KAFKA_SERVERS
               value: {{ include "api-user.kafka.url" . }}
             
+            # Kafka
+            - name: BOOKING_BASE_API
+              value: {{ include "api-user.booking.url" . }}
+
             - name: FRONTEND_URL
               value: {{ printf "https://www.%s" .Values.global.domain | quote }}
               
