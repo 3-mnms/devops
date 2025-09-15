@@ -23,3 +23,6 @@ spec:
     - name: kafka-ui
       port: {{ .Values.dbProxy.kafkaUi.port }}
       targetPort: {{ .Values.dbProxy.kafkaUi.targetPort }}
+    - name: grafana
+      port: {{ .Values.dbProxy.grafana.port }}
+      targetPort: {{ .Values.dbProxy.grafana.targetPort }}

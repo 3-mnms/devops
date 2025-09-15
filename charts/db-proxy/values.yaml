@@ -14,3 +14,6 @@ dbProxy:
   kafkaUi:
     port: 4010
     targetPort: 8080
+  grafana:
+    port: 4011
+    targetPort: 80
