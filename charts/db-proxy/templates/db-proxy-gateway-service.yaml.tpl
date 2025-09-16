@@ -25,4 +25,4 @@ spec:
       targetPort: {{ .Values.dbProxy.kafkaUi.targetPort }}
     - name: grafana
       port: {{ .Values.dbProxy.grafana.port }}
-      targetPort: {{ .Values.dbProxy.grafana.targetPort }}
+      targetPort: 80
