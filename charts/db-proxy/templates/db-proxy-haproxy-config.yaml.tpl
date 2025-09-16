@@ -43,6 +43,6 @@ data:
       server kafka-ui kafka-rookies-kafka-ui.kafka.svc.cluster.local:8080 check
 
     listen grafana
-      bind *:80
+      bind *:{{ .Values.dbProxy.grafana.port }}
       mode http
       server grafana monitoring-grafana.monitoring.svc.cluster.local:80 check
