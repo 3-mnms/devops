@@ -16,4 +16,4 @@ dbProxy:
     targetPort: 8080
   grafana:
     port: 4011
-    targetPort: 80
+    targetPort: 4011
