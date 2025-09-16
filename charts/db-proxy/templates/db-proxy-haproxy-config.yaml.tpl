@@ -45,4 +45,4 @@ data:
     listen grafana
       bind *:{{ .Values.dbProxy.grafana.port }}
       mode http
-      server grafana monitoring-grafana.monitoring.svc.cluster.local:80 check
+      server grafana monitoring-grafana.monitoring.svc.cluster.local:3000 check
