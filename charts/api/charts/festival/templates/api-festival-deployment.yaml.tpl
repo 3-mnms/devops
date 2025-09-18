@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "api-festival.fullname" . }}
+  name: {{ include "api-festival-deployment.fullname" . }}
   labels:
     {{- include "api-festival.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.apiFestival.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "api-festival.fullname" . }}
+      app: {{ include "api-festival-deployment.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ include "api-festival.fullname" . }}
+        app: {{ include "api-festival-deployment.fullname" . }}
     spec:
       containers:
         - name: festival

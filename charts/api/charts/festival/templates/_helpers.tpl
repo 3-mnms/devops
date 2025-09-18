@@ -2,6 +2,12 @@
 {{ .Release.Name }}-festival
 {{- end }}
 
+{{- define "api-festival-deployment.fullname" -}}
+{{ include "api-festival.fullname" . }}-deployment
+{{- end }}
+
+
+
 {{- define "api-festival.labels" -}}
 app.kubernetes.io/name: {{ include "api-festival.fullname" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}

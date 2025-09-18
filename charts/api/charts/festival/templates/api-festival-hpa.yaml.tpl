@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "api-festival.fullname" . }}
+    name: {{ include "api-festival-deployment.fullname" . }}
   minReplicas: 1
   maxReplicas: 3
   metrics:
