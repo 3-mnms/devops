@@ -57,6 +57,8 @@ spec:
               value: /api/users/reservationList
             - name: LOGGING_LEVEL_COM_MNMS_BOOKING_SERVICE
               value: DEBUG
+            - name: LOGGING_LEVEL_COM_MNMS_BOOKING_CONTROLLER
+              value: DEBUG
             
             - name: MAIL_USERNAME
               valueFrom:
