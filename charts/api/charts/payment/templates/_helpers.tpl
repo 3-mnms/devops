@@ -25,3 +25,15 @@ api-payment-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+
+{{- define "api-payment.kafka.url" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.kafka | default "kafka-service" -}}
+{{- $name -}}.kafka.svc.cluster.local:9092
+{{- end -}}
+
+{{- define "api-payment.database.url" -}}
+jdbc:mariadb://{{ .Values.global.service.apiPaymentDatabase | default "api-payment-database-service" }}:3306/{{ .Values.apiPayment.database.name }}
+{{- end -}}

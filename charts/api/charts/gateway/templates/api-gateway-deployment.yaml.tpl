@@ -4,7 +4,6 @@ metadata:
   name: {{ include "api-gateway.fullname" . }}
   labels:
     app: {{ include "api-gateway.name" . }}
-    {{ include "api-gateway.exposelabel" . }}: "true"
 spec:
   replicas: {{ .Values.apiGateway.replicaCount | default 2 }}
   selector:
@@ -14,9 +13,8 @@ spec:
     metadata:
       labels:
         app: {{ include "api-gateway.name" . }}
-        {{ include "api-gateway.exposelabel" . | indent 4 }}: "true"
     spec: 
-      serviceAccountName: {{ include "api-gateway.fullname" . }}-sa
+      serviceAccountName: {{ include "api-gateway.serviceaccountname" . }}
       containers: 
         - name: {{ include "api-gateway.name" . }}
           image: "{{ .Values.apiGateway.image.repository }}:{{ .Values.apiGateway.image.tag }}"
@@ -25,9 +23,6 @@ spec:
             - containerPort: {{ .Values.apiGateway.service.port }}
               name: http
               protocol: TCP
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.apiGateway.spring.profiles | default "develop" | quote }}
 
           resources:
             requests:
@@ -48,3 +43,29 @@ spec:
               port: {{ .Values.apiGateway.service.targetPort }}
             initialDelaySeconds: 80
             periodSeconds: 5
+
+          env:
+            # JWT 파일 경로
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.apiGateway.spring.profiles | default "prod" }}
+            - name: JWT_PRIVATE_PEM_PATH
+              value: "file:/etc/keys/private.pem"
+            - name: JWT_PUBLIC_PEM_PATH
+              value: "file:/etc/keys/public.pem"
+            - name: CORS_URL
+              value: {{ .Values.apiGateway.spring.corsUrl | default "https://www.rookies-tekcit.com" }}
+          volumeMounts:
+            - name: jwt-keys
+              mountPath: /etc/keys
+              readOnly: true
+      volumes:
+        - name: jwt-keys
+          secret:
+            secretName: api-gateway-secret
+            items:
+              - key: JWT_PRIVATE_PEM_PATH
+                path: private.pem
+              - key: JWT_PUBLIC_PEM_PATH
+                path: public.pem
+
+      

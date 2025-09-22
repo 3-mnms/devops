@@ -1,0 +1,130 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-user.fullname" . }}
+  labels:
+    {{- include "api-user.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.apiUser.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "api-user.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "api-user.fullname" . }}
+    spec:
+      containers:
+        - name: user
+          image: "{{ .Values.apiUser.image.registry }}/{{ .Values.apiUser.image.repository }}:{{ .Values.apiUser.image.tag }}"
+          imagePullPolicy: {{ .Values.apiUser.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.apiUser.service.port }}
+          env:
+          
+            # Kakao
+            - name: KAKAO_REDIRECT_URL
+              value: {{ printf "https://api.%s" .Values.global.domain  | quote }}
+
+            - name: KAKAO_REST_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-user-secret
+                  key: KAKAO_REST_API_KEY
+            - name: KAKAO_ADMIN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-user-secret
+                  key: KAKAO_ADMIN_KEY
+            
+            # Mail 
+            - name: MAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-user-secret
+                  key: MAIL_USERNAME
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-user-secret
+                  key: MAIL_PASSWORD
+            
+            # Database
+            - name: DB_URL
+              value: {{ include "api-user.database.url" .  }}
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-user-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-user-secret
+                  key: DB_PASSWORD
+            
+            # Kafka
+            - name: KAFKA_SERVERS
+              value: {{ include "api-user.kafka.url" . }}
+            
+            # Kafka
+            - name: BOOKING_BASE_API
+              value: {{ include "api-user.booking.url" . }}
+
+            - name: FRONTEND_URL
+              value: {{ printf "https://www.%s" .Values.global.domain | quote }}
+              
+            # Files
+            - name: JWT_PRIVATE_PEM_PATH
+              value: "file:/etc/keys/private.pem"
+            - name: JWT_PUBLIC_PEM_PATH
+              value: "file:/etc/keys/public.pem"
+            - name: FIREBASE_KEY_PATH
+              value: "/etc/firebase/firebase-adminsdk.json"
+
+
+          volumeMounts:
+            - name: jwt-keys
+              mountPath: /etc/keys
+              readOnly: true
+                    
+            - name: firebase-keys
+              mountPath: /etc/firebase
+              readOnly: true
+      volumes:
+        - name: jwt-keys
+          secret:
+            secretName: api-user-secret
+            items:
+              - key: JWT_PRIVATE_PEM_PATH
+                path: private.pem
+              - key: JWT_PUBLIC_PEM_PATH
+                path: public.pem
+              - key: JWT_PUBLIC_PEM_PATH
+                path: public.pem
+        - name: firebase-keys
+          secret:
+            secretName: api-user-secret
+            items:
+              - key: FIREBASE_KEY_PATH
+                path: firebase-adminsdk.json
+
+          resources:
+            requests:
+              cpu: {{ .Values.apiUser.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiUser.resources.requests.memory | default "256Mi" }}
+            limits:
+              cpu: {{ .Values.apiUser.resources.limits.cpu | default "500m" }}
+              memory: {{ .Values.apiUser.resources.limits.memory | default "1024Mi" }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiUser.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiUser.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 5

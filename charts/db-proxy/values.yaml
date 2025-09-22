@@ -1,0 +1,19 @@
+dbProxy:
+  payment:
+    port: 4000
+    targetPort: 4000
+  user:
+    port: 4001
+    targetPort: 4001
+  festival:
+    port: 4002
+    targetPort: 4002
+  booking:
+    port: 4003
+    targetPort: 4003
+  kafkaUi:
+    port: 4010
+    targetPort: 8080
+  grafana:
+    port: 4011
+    targetPort: 80

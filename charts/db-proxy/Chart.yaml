@@ -1,6 +1,7 @@
 apiVersion: v2
-name: apiMessage
-description: apiMessage
+name: db-proxy
+description: Helm chart for User Service
 type: application
 version: 0.1.0
 appVersion: "1.0.0"
+

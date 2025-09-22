@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-payment.fullname" . }}
+  labels:
+    {{- include "api-payment.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.apiPayment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "api-payment.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "api-payment.fullname" . }}
+    spec:
+      containers:
+        - name: payment
+          image: "{{ .Values.apiPayment.image.registry }}/{{ .Values.apiPayment.image.repository }}:{{ .Values.apiPayment.image.tag }}"
+          imagePullPolicy: {{ .Values.apiPayment.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.apiPayment.service.port }}
+          env:
+            # Spring Settings
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.apiPayment.spring.profiles | default "prod" }}
+            - name: SERVER_PORT
+              value: {{ .Values.apiPayment.service.port | quote }}
+
+            # # Portone Settings
+            - name: PORTONE_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: PORTONE_API_SECRET
+            - name: PORTONE_CHANNEL_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: PORTONE_CHANNEL_KEY
+            - name: PORTONE_STORE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: PORTONE_STORE_ID
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: WEBHOOK_SECRET
+
+
+            # Database Settings
+            - name: SPRING_DATASOURCE_URL
+              value: {{ include "api-payment.database.url" . }}
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: api-payment-secret
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
+
+
+            # Kafka Settings
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: {{ include "api-payment.kafka.url" . }}
+
+          resources:
+            requests:
+              cpu: {{ .Values.apiPayment.resources.requests.cpu | default "256m" }}
+              memory: {{ .Values.apiPayment.resources.requests.memory | default "256Mi" }}
+            limits:
+              cpu: {{ .Values.apiPayment.resources.limits.cpu | default "500m" }}
+              memory: {{ .Values.apiPayment.resources.limits.memory | default "1024Mi" }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiPayment.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 10
+          # readinessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: {{ .Values.apiPayment.service.port }}
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 5

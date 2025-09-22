@@ -8,7 +8,7 @@ metadata:
 spec:
   type: {{ .Values.apiFestival.service.type }}
   selector:
-    app: {{ include "api-festival.fullname" . }}
+    app: {{ include "api-festival-deployment.fullname" . }}
   ports:
     - port: {{ .Values.apiFestival.service.port }}
       targetPort: {{ .Values.apiFestival.service.port }}

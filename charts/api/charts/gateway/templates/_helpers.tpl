@@ -79,9 +79,12 @@ api.rookies-tekcit.com
 kubernetes.io/ingress.class: alb
 alb.ingress.kubernetes.io/scheme: {{ .Values.apiGateway.ingress.aws.scheme | default "internet-facing" }}
 alb.ingress.kubernetes.io/target-type: ip
+alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+alb.ingress.kubernetes.io/success-codes: "200"
 {{- if eq .Values.apiGateway.ingress.tls true }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
 alb.ingress.kubernetes.io/certificate-arn: {{ .Values.apiGateway.ingress.aws.certificateArn | quote }}
+alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
 {{- else }}
 alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 {{- end -}}
@@ -111,4 +114,11 @@ cloud.google.com/backend-config: '{"ports":{"http":"{{ include "api-gateway-ingr
 kubernetes.io/ingress.class: gce
 kubernetes.io/ingress.global-static-ip-name: {{ .Values.apiGateway.ingress.gce.ipName | default "rookies-tkcit-static-ip" }}
 {{- end -}}
+
+
+{{- define "api-gateway.serviceaccountname" -}}
+{{ include "api-gateway.fullname" . }}-sa
+{{- end -}}
+
+
 

@@ -10,5 +10,7 @@ spec:
   selector:
     app: {{ include "api-booking.fullname" . }}
   ports:
-    - port: {{ .Values.apiBooking.service.port }}
+
+    - name: http
+      port: {{ .Values.apiBooking.service.port }}
       targetPort: {{ .Values.apiBooking.service.port }}

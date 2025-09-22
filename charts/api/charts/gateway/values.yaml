@@ -6,6 +6,7 @@ apiGateway:
     pullPolicy: IfNotPresent
   spring:
     profiles: local
+    corsUrl: http://www.rookies-tekcit.com
   resources:
     requests:
       cpu: "256m"
@@ -35,5 +36,6 @@ apiGateway:
       backendConfigName: api-gateway-backendconfig
       tlsSecret: api-gateway-tls-secret
     aws:
-      scheme: "internal-facing" 
+      scheme: "internet-facing" 
       certificateArn: "none"
+      serviceAccountName: aws-load-balancer-controller

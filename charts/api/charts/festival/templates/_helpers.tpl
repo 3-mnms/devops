@@ -2,6 +2,12 @@
 {{ .Release.Name }}-festival
 {{- end }}
 
+{{- define "api-festival-deployment.fullname" -}}
+{{ include "api-festival.fullname" . }}-deployment
+{{- end }}
+
+
+
 {{- define "api-festival.labels" -}}
 app.kubernetes.io/name: {{ include "api-festival.fullname" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
@@ -25,3 +31,37 @@ api-festival-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+
+{{- define "api-festival.kafka.url" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.kafka | default "kafka-service" -}}
+{{- $name -}}.kafka.svc.cluster.local:9092
+{{- end -}}
+
+{{- define "api-festival.database.url" -}}
+jdbc:mariadb://{{ .Values.global.service.apiFestivalDatabase | default "api-festival-database-service" }}:3306/{{ .Values.apiFestival.database.name }}
+{{- end -}}
+
+
+
+
+
+{{- define "api-festival-ai.fullname" -}}
+{{ .Release.Name }}-festival-ai
+{{- end }}
+
+{{- define "api-festival-ai.labels" -}}
+app.kubernetes.io/name: {{ include "api-festival-ai.fullname" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{- define "api-festival-ai.servicename" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.apiFestivalAi | default "api-festival-ai" -}}
+{{- $name -}}
+{{- end }}
+

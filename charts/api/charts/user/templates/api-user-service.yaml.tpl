@@ -12,3 +12,4 @@ spec:
   ports:
     - port: {{ .Values.apiUser.service.port }}
       targetPort: {{ .Values.apiUser.service.port }}
+      

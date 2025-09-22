@@ -9,14 +9,14 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{- define "api-user.servicename" -}}
-{{- if .Values.global.service.apiUser }}
-{{- .Values.global.service.apiUser | trunc 63 | trimSuffix "-" }}
-{{- else if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
-{{- else }}
+{{- if .Values.global.service.apiUser -}}
+{{- .Values.global.service.apiUser | trunc 63 | trimSuffix "-" -}}
+{{- else if .Values.fullnameOverride -}}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
 api-user-service
-{{- end }}
-{{- end }}
+{{- end -}}
+{{- end -}}
 
 {{- define "api-user.exposelabel" -}}
 {{- if .Values.global.apiGateway.serviceLabel }}
@@ -25,3 +25,18 @@ api-user-service
 expose-via-spring-gateway
 {{- end }}
 {{- end }}
+
+{{- define "api-user.kafka.url" -}}
+{{- $g := .Values.global | default (dict) -}}
+{{- $svc := $g.service | default (dict) -}}
+{{- $name := $svc.kafka | default "kafka-service" -}}
+{{- $name -}}.kafka.svc.cluster.local:9092
+{{- end -}}
+
+{{- define "api-user.database.url" -}}
+jdbc:mariadb://{{ .Values.global.service.apiUserDatabaseService | default "api-user-database-service" }}:3306/{{ .Values.apiUser.database.name }}
+{{- end -}}
+
+{{- define "api-user.booking.url" -}}
+{{ printf "http://%s.booking.svc.cluster.local:8080" (default "kafka-service" .Values.global.service.apiBooking)  }}
+{{- end -}}
